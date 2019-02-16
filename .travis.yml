@@ -4,6 +4,7 @@ node_js:
   - "10"
 branches:
   only:
+    - master
     - dev
 before_install:
   - npm install -g @angular/cli
