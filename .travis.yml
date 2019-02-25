@@ -16,4 +16,12 @@ cache:
 script:
   - npm run lint
   - npm run test
-  - npm run build-prod
+  - npm run postinstall
+deploy:
+  provider: heroku
+  api_key:
+    secure: g9J782hzu09rQiWZL5KVDGh+KcqpKblu872uuKMLRoYXaHtyXCktwYzIAFGxCGAdEtWzti130tXPkqPkOsZS2iLgx4ZhdB5gUYtznPz3MXcaLCWlGXCNSLbWS8OXH2xP6sPG79L0O6oSFE3XWsA88o9nct+R0XJe1BxZEM4tO8AWxNCVx3vXYpLAonMZAvl7QhacnvY2L7BmvLKqqnckNDlD1PomrfgXC+Ortj03XZUhQxH2tN86yWaAIr2/eSBVJm52wUzkOypQK6waoX2kZsO3iApJoxfjQAns1X7TISwfnd0lW5y7w1NYiXAKkNGPPvLEYdHWNBN/MzS9X+Q1RfDXhWZqCvTGxdZeFQsQN746ZYI7B3e+5AEm5x3H0dSe+oLN5sDLFX340vMzQ4EOSBF+btdzuoD3vBOoUEZJj03YKCfAbkSqMI/8SlhVCU74r0UDJRI/w2u+Wr0jiQbiw+65O2Tnoa3kceG9DCB06YdyWa9N2CV2SzyXCP+MGEZ9Q79TPzTrMUYkyGyurcAQ2dSeD10s2x/3Dy6kPdtVtHtVRd85L/EBjQUNDcyMlLadDA8QYV3wkhl+yu4Mf+xfpoK96BrRGR7/nZ22HP4/vDjpuYwFdBt2DiHkURzNcGRCXT55L9TnB+VcCoVXqrHmXc6zeZgHLDGSVqppwDb085E=
+  app: test-restoration-front
+  on:
+    repo: BeguinMattis/Test-restoration-front
+    branch: dev
