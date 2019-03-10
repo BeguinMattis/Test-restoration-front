@@ -3,6 +3,7 @@ import { NgModule } from '@angular/core';
 
 import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
+import { SearchModule } from './modules/search/search.module';
 import { GoogleModule } from './modules/google/google.module';
 import { AgmCoreModule } from '@agm/core';
 
@@ -13,6 +14,7 @@ import { AgmCoreModule } from '@agm/core';
   imports: [
     BrowserModule,
     AppRoutingModule,
+    SearchModule,
     GoogleModule,
     AgmCoreModule.forRoot({
       apiKey: 'GOOGLE_API_KEY'
