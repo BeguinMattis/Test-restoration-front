@@ -17,7 +17,10 @@ import { AgmCoreModule } from '@agm/core';
     SearchModule,
     GoogleModule,
     AgmCoreModule.forRoot({
-      apiKey: 'GOOGLE_API_KEY'
+      apiKey: 'GOOGLE_API_KEY',
+      libraries: [
+        'places'
+      ]
     })
   ],
   providers: [],

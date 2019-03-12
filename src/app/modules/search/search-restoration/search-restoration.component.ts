@@ -1,4 +1,10 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, ViewChild, ElementRef, NgZone } from '@angular/core';
+import { FormGroup, FormBuilder } from '@angular/forms';
+import { MapsAPILoader } from '@agm/core';
+import { } from 'googlemaps';
+import AutocompleteOptions = google.maps.places.AutocompleteOptions;
+import Autocomplete = google.maps.places.Autocomplete;
+import PlaceResult = google.maps.places.PlaceResult;
 import { Marker } from '../../../models/marker.model';
 
 @Component({
@@ -8,9 +14,20 @@ import { Marker } from '../../../models/marker.model';
 })
 export class SearchRestorationComponent implements OnInit {
 
-  constructor() { }
+  addressForm: FormGroup;
+
+  @ViewChild('address')
+  addressRef: ElementRef;
+
+  constructor(private formBuilder: FormBuilder,
+              private ngZone: NgZone,
+              private mapsAPILoader: MapsAPILoader) { }
 
   ngOnInit() {
+    this.addressForm = this.formBuilder.group({
+      addressControl: ''
+    });
+    this.getAddress();
   }
 
   getUserLocation(): void {
@@ -50,6 +67,31 @@ export class SearchRestorationComponent implements OnInit {
       console.error('Geolocation is not supported by this browser!');
       return false;
     }
+  }
+
+  getAddress(): void {
+    const addressAutocompleteOptions: AutocompleteOptions = {
+      types: ['address']
+    };
+    this.mapsAPILoader.load().then(() => {
+      // tslint:disable-next-line:max-line-length
+      const addressAutocomplete: Autocomplete = new google.maps.places.Autocomplete(this.addressRef.nativeElement, addressAutocompleteOptions);
+      addressAutocomplete.addListener('place_changed', () => {
+        this.ngZone.run(() => {
+          const addressResult: PlaceResult = addressAutocomplete.getPlace();
+
+          if (addressResult.geometry === undefined || addressResult.geometry === null) {
+            return;
+          }
+
+          const marker: Marker = {
+            latitude: addressResult.geometry.location.lat(),
+            longitude: addressResult.geometry.location.lng()
+          };
+          console.log('Marker : ' + JSON.stringify(marker));
+        });
+      });
+    });
   }
 
 }
