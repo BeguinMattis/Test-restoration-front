@@ -1,4 +1,8 @@
 import { Component, OnInit } from '@angular/core';
+import { Marker } from '../../../models/marker.model';
+import { Subscription } from 'rxjs';
+import { filter } from 'rxjs/operators';
+import { MapService } from '../../../services/map.service';
 
 @Component({
   selector: 'app-google-maps',
@@ -7,14 +11,28 @@ import { Component, OnInit } from '@angular/core';
 })
 export class GoogleMapsComponent implements OnInit {
 
-  latitude: number;
-  longitude: number;
+  userMarker: Marker;
+  restorationMarkers: Marker[];
+  markerSubscription: Subscription;
 
-  constructor() { }
+  constructor(private mapService: MapService) { }
 
   ngOnInit() {
-    this.latitude = 51.678418;
-    this.longitude = 7.809007;
+    this.userMarker = {
+      latitude: 48.8534,
+      longitude: 2.3488,
+      display: false
+    };
+    this.markerSubscription = this.mapService.markerSubject
+      .pipe(filter((marker) => !!marker && !!marker.latitude && !!marker.longitude))
+      .subscribe((marker: Marker) => {
+        this.userMarker = marker;
+      }
+    );
+  }
+
+  addRestorationMarker(marker: Marker): void {
+    this.restorationMarkers.push(marker);
   }
 
 }

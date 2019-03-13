@@ -6,6 +6,7 @@ import AutocompleteOptions = google.maps.places.AutocompleteOptions;
 import Autocomplete = google.maps.places.Autocomplete;
 import PlaceResult = google.maps.places.PlaceResult;
 import { Marker } from '../../../models/marker.model';
+import { MapService } from '../../../services/map.service';
 
 @Component({
   selector: 'app-search-restoration',
@@ -20,8 +21,9 @@ export class SearchRestorationComponent implements OnInit {
   addressRef: ElementRef;
 
   constructor(private formBuilder: FormBuilder,
+              private mapsAPILoader: MapsAPILoader,
               private ngZone: NgZone,
-              private mapsAPILoader: MapsAPILoader) { }
+              private mapService: MapService) { }
 
   ngOnInit() {
     this.addressForm = this.formBuilder.group({
@@ -30,7 +32,7 @@ export class SearchRestorationComponent implements OnInit {
     this.getAddress();
   }
 
-  getUserLocation(): void {
+  getUserAddress(): void {
     this.HTML5GeolocationAPI();
   }
 
@@ -38,10 +40,12 @@ export class SearchRestorationComponent implements OnInit {
     if ((window.navigator) && (window.navigator.geolocation)) {
       window.navigator.geolocation.getCurrentPosition((position: Position) => {
           const marker: Marker = {
-            latitude: position.coords.latitude,
-            longitude: position.coords.longitude
+            latitude: +position.coords.latitude,
+            longitude: +position.coords.longitude,
+            display: true
           };
           console.log('Marker : ' + JSON.stringify(marker));
+          this.mapService.setAddress(marker);
           return true;
         },
         (error: PositionError) => {
@@ -85,10 +89,12 @@ export class SearchRestorationComponent implements OnInit {
           }
 
           const marker: Marker = {
-            latitude: addressResult.geometry.location.lat(),
-            longitude: addressResult.geometry.location.lng()
+            latitude: +addressResult.geometry.location.lat(),
+            longitude: +addressResult.geometry.location.lng(),
+            display: true
           };
           console.log('Marker : ' + JSON.stringify(marker));
+          this.mapService.setAddress(marker);
         });
       });
     });
