@@ -1,6 +1,8 @@
 import { Injectable, ElementRef, NgZone } from '@angular/core';
-import { Subject } from 'rxjs';
+import { Subject, Observable } from 'rxjs';
 import { Marker } from '../../models/marker.model';
+import { HttpClient } from '@angular/common/http';
+import { environment } from '../../../environments/environment';
 import { MapsAPILoader } from '@agm/core';
 import { } from 'googlemaps';
 import AutocompleteOptions = google.maps.places.AutocompleteOptions;
@@ -14,7 +16,8 @@ export class GeolocationService {
 
   streetMarkerSubject: Subject<Marker>;
 
-  constructor(private mapsAPILoader: MapsAPILoader,
+  constructor(private http: HttpClient,
+              private mapsAPILoader: MapsAPILoader,
               private ngZone: NgZone) {
     this.streetMarkerSubject = new Subject<Marker>();
   }
@@ -24,7 +27,26 @@ export class GeolocationService {
       this.HTML5GeolocationAPI().then((marker: Marker) => {
         resolve(marker);
       }).catch((errorMessage: String) => {
-        reject(errorMessage);
+         if ((errorMessage === 'Location information is unavailable!') ||
+            (errorMessage === 'The request to get user location timed out!') ||
+            (errorMessage === 'An unknown error occurred!')) {
+           this.IPGeolocationAPI().subscribe((position: any) => {
+             const marker: Marker = {
+               latitude: +position.location.lat,
+               longitude: +position.location.lng,
+               display: true,
+               accuracy: +position.accuracy
+             };
+             console.log('Marker : ' + JSON.stringify(marker));
+             resolve(marker);
+           }, ((error) => {
+             errorMessage = 'Google Geolocation API returned an error!';
+             console.error(error);
+             reject(errorMessage);
+           }));
+        } else {
+           reject(errorMessage);
+         }
       });
     });
   }
@@ -60,7 +82,7 @@ export class GeolocationService {
             }
 
             console.error(errorMessage);
-            console.error(error.message);
+            console.error('Error : ' + JSON.stringify(error));
             reject(errorMessage);
           },
           {enableHighAccuracy: true});
@@ -70,6 +92,10 @@ export class GeolocationService {
         reject(errorMessage);
       }
     });
+  }
+
+  private IPGeolocationAPI(): Observable<any> {
+    return this.http.post('https://www.googleapis.com/geolocation/v1/geolocate?key=' + environment.google_api_key, null);
   }
 
   getStreetCoordinates(addressRef: ElementRef) {
