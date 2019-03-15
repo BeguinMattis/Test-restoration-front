@@ -2,7 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { Marker } from '../../../models/marker.model';
 import { Subscription } from 'rxjs';
 import { filter } from 'rxjs/operators';
-import { MapService } from '../../../services/map.service';
+import { MapService } from '../../../services/map/map.service';
 
 @Component({
   selector: 'app-google-maps',
@@ -13,7 +13,7 @@ export class GoogleMapsComponent implements OnInit {
 
   userMarker: Marker;
   restorationMarkers: Marker[];
-  markerSubscription: Subscription;
+  userMarkerSubscription: Subscription;
 
   constructor(private mapService: MapService) { }
 
@@ -23,7 +23,7 @@ export class GoogleMapsComponent implements OnInit {
       longitude: 2.3488,
       display: false
     };
-    this.markerSubscription = this.mapService.markerSubject
+    this.userMarkerSubscription = this.mapService.userMarkerSubject
       .pipe(filter((marker) => !!marker && !!marker.latitude && !!marker.longitude))
       .subscribe((marker: Marker) => {
         this.userMarker = marker;

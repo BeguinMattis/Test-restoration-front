@@ -57,7 +57,9 @@
         "serve": {
           "builder": "@angular-devkit/build-angular:dev-server",
           "options": {
-            "browserTarget": "Front:build"
+            "browserTarget": "Front:build",
+            "ssl": true,
+            "port": 4200
           },
           "configurations": {
             "production": {

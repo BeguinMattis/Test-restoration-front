@@ -15,4 +15,4 @@ import { AgmCoreModule } from '@agm/core';
     GoogleMapsComponent
   ]
 })
-export class GoogleModule { }
+export class GoogleMapsModule { }

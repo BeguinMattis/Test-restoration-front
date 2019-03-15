@@ -16,4 +16,4 @@ import { FormsModule, ReactiveFormsModule } from '@angular/forms';
     SearchRestorationComponent
   ]
 })
-export class SearchModule { }
+export class SearchRestorationModule { }

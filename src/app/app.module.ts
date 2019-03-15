@@ -2,10 +2,10 @@ import { BrowserModule } from '@angular/platform-browser';
 import { NgModule } from '@angular/core';
 import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
-import { SearchModule } from './modules/search/search.module';
-import { GoogleModule } from './modules/google/google.module';
+import { SearchRestorationModule } from './modules/search-restoration/search-restoration.module';
+import { GoogleMapsModule } from './modules/google-maps/google-maps.module';
 import { AgmCoreModule } from '@agm/core';
-import { MapService } from './services/map.service';
+import { MapService } from './services/map/map.service';
 
 @NgModule({
   declarations: [
@@ -14,8 +14,8 @@ import { MapService } from './services/map.service';
   imports: [
     BrowserModule,
     AppRoutingModule,
-    SearchModule,
-    GoogleModule,
+    SearchRestorationModule,
+    GoogleMapsModule,
     AgmCoreModule.forRoot({
       apiKey: 'GOOGLE_API_KEY',
       libraries: [
