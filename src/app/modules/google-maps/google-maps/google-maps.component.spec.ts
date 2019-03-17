@@ -2,6 +2,8 @@ import { async, ComponentFixture, TestBed } from '@angular/core/testing';
 import { NO_ERRORS_SCHEMA } from '@angular/core';
 import { GoogleMapsComponent } from './google-maps.component';
 import { Marker } from '../../../models/marker.model';
+import { Observable } from 'rxjs';
+import { MarkerService } from '../../../services/marker/marker.service';
 
 describe('GoogleMapsComponent', () => {
   let component: GoogleMapsComponent;
@@ -25,12 +27,12 @@ describe('GoogleMapsComponent', () => {
 
   describe('ngOnInit', () => {
     it('Should create the component', () => {
-      const parisMarker = {
+      const parisMarker: Marker = {
         latitude: 48.8534,
         longitude: 2.3488,
         display: false
       };
-      spyOn(component['mapService'], 'setUserMarker');
+      spyOn(component['mapService'], 'setUserMarker').and.returnValue(Observable.create(parisMarker));
       component.ngOnInit();
       expect(component.restorationMarkers).toEqual([]);
       expect(component['mapService'].setUserMarker).toHaveBeenCalledWith(parisMarker);
@@ -40,22 +42,26 @@ describe('GoogleMapsComponent', () => {
   });
 
   describe('addRestorationMarker', () => {
-    it('Should add a marker in the restorationMarkers array', () => {
+    it('Should add a restorationMarker object in the restorationMarkers array', () => {
       const restorationMarker: Marker = {
         latitude: 0,
         longitude: 0,
-        display: true
+        display: false
       };
+      spyOn(MarkerService, 'check').and.returnValue(true);
       component.restorationMarkers = [];
       component.addRestorationMarker(restorationMarker);
+      expect(MarkerService.check).toHaveBeenCalledWith(restorationMarker);
       expect(component.restorationMarkers.length).toEqual(1);
       expect(component.restorationMarkers).toEqual([restorationMarker]);
     });
 
-    it('Should not add a marker in the restorationMarkers array', () => {
+    it('Should not add a restorationMarker object in the restorationMarkers array', () => {
       const restorationMarker: any = null;
+      spyOn(MarkerService, 'check').and.returnValue(false);
       component.restorationMarkers = [];
       component.addRestorationMarker(restorationMarker);
+      expect(MarkerService.check).toHaveBeenCalledWith(restorationMarker);
       expect(component.restorationMarkers.length).toEqual(0);
       expect(component.restorationMarkers).toEqual([]);
     });

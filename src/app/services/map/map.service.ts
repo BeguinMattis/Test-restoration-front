@@ -1,6 +1,7 @@
 import { Injectable } from '@angular/core';
 import { Subject } from 'rxjs';
 import { Marker } from '../../models/marker.model';
+import { MarkerService } from '../marker/marker.service';
 
 @Injectable({
   providedIn: 'root'
@@ -13,8 +14,9 @@ export class MapService {
     this.userMarkerSubject = new Subject<Marker>();
   }
 
-  setUserMarker(marker: Marker): void {
-    this.userMarkerSubject.next(marker);
+  setUserMarker(userMarker: Marker): void {
+    if (MarkerService.check(userMarker) === true) {
+      this.userMarkerSubject.next(userMarker);
+    }
   }
-
 }
