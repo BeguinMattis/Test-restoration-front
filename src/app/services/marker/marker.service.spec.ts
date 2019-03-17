@@ -1,4 +1,4 @@
-import { TestBed, inject } from '@angular/core/testing';
+import { TestBed } from '@angular/core/testing';
 import { MarkerService } from './marker.service';
 import { Marker } from '../../models/marker.model';
 
@@ -13,18 +13,18 @@ describe('MarkerService', () => {
   });
 
   describe('check', () => {
-    it('Should return true', inject([MarkerService], (service: MarkerService) => {
+    it('Should return true', () => {
       const marker: Marker = {
         latitude: 0,
         longitude: 0,
         display: false
       };
-      expect(service.check(marker)).toEqual(true);
-    }));
+      expect(MarkerService.check(marker)).toEqual(true);
+    });
 
-    it('Should return false', inject([MarkerService], (service: MarkerService) => {
+    it('Should return false', () => {
       const marker: any = null;
-      expect(service.check(marker)).toEqual(false);
-    }));
+      expect(MarkerService.check(marker)).toEqual(false);
+    });
   });
 });
