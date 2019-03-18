@@ -2,8 +2,8 @@ import { Injectable, ElementRef, NgZone } from '@angular/core';
 import { Subject, Observable } from 'rxjs';
 import { Marker } from '../../models/marker.model';
 import { HttpClient } from '@angular/common/http';
-import { environment } from '../../../environments/environment';
 import { MapsAPILoader } from '@agm/core';
+import { environment } from '../../../environments/environment';
 import { } from 'googlemaps';
 import AutocompleteOptions = google.maps.places.AutocompleteOptions;
 import Autocomplete = google.maps.places.Autocomplete;
@@ -24,21 +24,21 @@ export class GeolocationService {
 
   getUserCoordinates(): Promise<Marker | string> {
     return new Promise((resolve, reject) => {
-      this.HTML5GeolocationAPI().then((marker: Marker) => {
-        resolve(marker);
+      this.HTML5GeolocationAPI().then((userMarker: Marker) => {
+        resolve(userMarker);
       }).catch((errorMessage: String) => {
          if ((errorMessage === 'Location information is unavailable!') ||
             (errorMessage === 'The request to get user location timed out!') ||
             (errorMessage === 'An unknown error occurred!')) {
            this.IPGeolocationAPI().subscribe((position: any) => {
-             const marker: Marker = {
+             const userMarker: Marker = {
                latitude: +position.location.lat,
                longitude: +position.location.lng,
                display: true,
                accuracy: +position.accuracy
              };
-             console.log('Marker : ' + JSON.stringify(marker));
-             resolve(marker);
+             console.log('User marker : ' + JSON.stringify(userMarker));
+             resolve(userMarker);
            }, ((error) => {
              errorMessage = 'Google Geolocation API returned an error!';
              console.error(error);
@@ -55,13 +55,13 @@ export class GeolocationService {
     return new Promise((resolve, reject) => {
       if ((window.navigator) && (window.navigator.geolocation)) {
         window.navigator.geolocation.getCurrentPosition((position: Position) => {
-            const marker: Marker = {
+            const userMarker: Marker = {
               latitude: +position.coords.latitude,
               longitude: +position.coords.longitude,
               display: true
             };
-            console.log('Marker : ' + JSON.stringify(marker));
-            resolve(marker);
+            console.log('User marker : ' + JSON.stringify(userMarker));
+            resolve(userMarker);
           },
           (error: PositionError) => {
             let errorMessage;
@@ -112,16 +112,15 @@ export class GeolocationService {
             return;
           }
 
-          const marker: Marker = {
+          const userMarker: Marker = {
             latitude: +addressResult.geometry.location.lat(),
             longitude: +addressResult.geometry.location.lng(),
             display: true
           };
-          console.log('Marker : ' + JSON.stringify(marker));
-          this.streetMarkerSubject.next(marker);
+          console.log('User marker : ' + JSON.stringify(userMarker));
+          this.streetMarkerSubject.next(userMarker);
         });
       });
     });
   }
-
 }

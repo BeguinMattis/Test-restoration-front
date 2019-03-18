@@ -8,7 +8,7 @@ export class MarkerService {
 
   constructor() { }
 
-  static check(marker: Marker) {
+  static check(marker: Marker): boolean {
     return (((marker !== null) && (marker !== undefined)) &&
       ((marker.latitude !== null) && (marker.latitude !== undefined) && (typeof marker.latitude === 'number')) &&
       ((marker.longitude !== null) && (marker.longitude !== undefined) && (typeof marker.longitude === 'number')) &&

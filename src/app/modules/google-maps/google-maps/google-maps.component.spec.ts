@@ -1,8 +1,9 @@
-import { async, ComponentFixture, TestBed } from '@angular/core/testing';
-import { NO_ERRORS_SCHEMA } from '@angular/core';
+import { async, ComponentFixture, TestBed, inject } from '@angular/core/testing';
 import { GoogleMapsComponent } from './google-maps.component';
+import { NO_ERRORS_SCHEMA } from '@angular/core';
+import { MapService } from '../../../services/map/map.service';
 import { Marker } from '../../../models/marker.model';
-import { Observable } from 'rxjs';
+import { of } from 'rxjs';
 import { MarkerService } from '../../../services/marker/marker.service';
 
 describe('GoogleMapsComponent', () => {
@@ -26,19 +27,19 @@ describe('GoogleMapsComponent', () => {
   });
 
   describe('ngOnInit', () => {
-    it('Should create the component', () => {
+    it('Should create the component', inject([MapService], (mapService: MapService) => {
       const parisMarker: Marker = {
         latitude: 48.8534,
         longitude: 2.3488,
         display: false
       };
-      spyOn(component['mapService'], 'setUserMarker').and.returnValue(Observable.create(parisMarker));
+      spyOn(mapService, 'setUserMarker').and.returnValue(of(parisMarker));
       component.ngOnInit();
       expect(component.restorationMarkers).toEqual([]);
-      expect(component['mapService'].setUserMarker).toHaveBeenCalledWith(parisMarker);
+      expect(mapService.setUserMarker).toHaveBeenCalledWith(parisMarker);
       expect(component.userMarker).toEqual(parisMarker);
       expect(component).toBeTruthy();
-    });
+    }));
   });
 
   describe('addRestorationMarker', () => {

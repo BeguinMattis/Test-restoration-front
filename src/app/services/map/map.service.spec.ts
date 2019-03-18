@@ -8,35 +8,34 @@ describe('MapService', () => {
   beforeEach(() => TestBed.configureTestingModule({}));
 
   describe('constructor', () => {
-    it('Should create the service', () => {
-      const service: MapService = TestBed.get(MapService);
+    it('Should create the service', inject([MapService], (mapService: MapService) => {
       const userMarkerSubject: Subject<Marker> = new Subject<Marker>();
-      expect(service.userMarkerSubject).toEqual(userMarkerSubject);
-      expect(service).toBeTruthy();
-    });
+      expect(mapService.userMarkerSubject).toEqual(userMarkerSubject);
+      expect(mapService).toBeTruthy();
+    }));
   });
 
   describe('setUserMarker', () => {
-    it('Should send the marker object', inject([MapService], (service: MapService) => {
+    it('Should send the userMarker object', inject([MapService], (mapService: MapService) => {
       const userMarker: Marker = {
         latitude: 0,
         longitude: 0,
         display: false
       };
       spyOn(MarkerService, 'check').and.returnValue(true);
-      spyOn(service.userMarkerSubject, 'next');
-      service.setUserMarker(userMarker);
+      spyOn(mapService.userMarkerSubject, 'next');
+      mapService.setUserMarker(userMarker);
       expect(MarkerService.check).toHaveBeenCalledWith(userMarker);
-      expect(service.userMarkerSubject.next).toHaveBeenCalledWith(userMarker);
+      expect(mapService.userMarkerSubject.next).toHaveBeenCalledWith(userMarker);
     }));
 
-    it('Should not send the marker object', inject([MapService], (service: MapService) => {
+    it('Should not send the userMarker object', inject([MapService], (mapService: MapService) => {
       const userMarker: any = null;
       spyOn(MarkerService, 'check').and.returnValue(false);
-      spyOn(service.userMarkerSubject, 'next');
-      service.setUserMarker(userMarker);
+      spyOn(mapService.userMarkerSubject, 'next');
+      mapService.setUserMarker(userMarker);
       expect(MarkerService.check).toHaveBeenCalledWith(userMarker);
-      expect(service.userMarkerSubject.next).not.toHaveBeenCalledWith(userMarker);
+      expect(mapService.userMarkerSubject.next).not.toHaveBeenCalledWith(userMarker);
     }));
   });
 });

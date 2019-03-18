@@ -1,4 +1,4 @@
-import { TestBed } from '@angular/core/testing';
+import { TestBed, inject } from '@angular/core/testing';
 import { MarkerService } from './marker.service';
 import { Marker } from '../../models/marker.model';
 
@@ -6,10 +6,9 @@ describe('MarkerService', () => {
   beforeEach(() => TestBed.configureTestingModule({}));
 
   describe('constructor', () => {
-    it('Should create the service', () => {
-      const service: MarkerService = TestBed.get(MarkerService);
-      expect(service).toBeTruthy();
-    });
+    it('Should create the service', inject([MarkerService], (markerService: MarkerService) => {
+      expect(markerService).toBeTruthy();
+    }));
   });
 
   describe('check', () => {
