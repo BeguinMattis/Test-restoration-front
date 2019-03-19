@@ -27,8 +27,7 @@ export class GoogleMapsComponent implements OnInit, OnDestroy {
       .pipe(filter((userMarker: Marker) => MarkerService.check(userMarker) === true))
       .subscribe((userMarker: Marker) => {
         this.userMarker = userMarker;
-      }
-    );
+      });
     const parisMarker: Marker = {
       latitude: 48.8534,
       longitude: 2.3488,

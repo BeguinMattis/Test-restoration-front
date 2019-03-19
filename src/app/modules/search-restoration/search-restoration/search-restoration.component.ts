@@ -1,9 +1,8 @@
-import { Component, OnInit, OnDestroy, ViewChild, ElementRef } from '@angular/core';
+import { Component, OnInit, ViewChild, ElementRef } from '@angular/core';
 import { FormGroup, FormBuilder } from '@angular/forms';
-import { Subject } from 'rxjs';
 import { GeolocationService } from '../../../services/geolocation/geolocation.service';
 import { MapService } from '../../../services/map/map.service';
-import { takeUntil, filter } from 'rxjs/operators';
+import { filter } from 'rxjs/operators';
 import { Marker } from '../../../models/marker.model';
 import { MarkerService } from '../../../services/marker/marker.service';
 
@@ -12,13 +11,12 @@ import { MarkerService } from '../../../services/marker/marker.service';
   templateUrl: './search-restoration.component.html',
   styleUrls: ['./search-restoration.component.css']
 })
-export class SearchRestorationComponent implements OnInit, OnDestroy {
+export class SearchRestorationComponent implements OnInit {
 
   addressForm: FormGroup;
 
   @ViewChild('address')
   addressRef: ElementRef;
-  private _ngUnsubscribe: Subject<any>;
 
   constructor(private formBuilder: FormBuilder,
               private geolocationService: GeolocationService,
@@ -30,11 +28,10 @@ export class SearchRestorationComponent implements OnInit, OnDestroy {
     });
     this.geolocationService.getStreetCoordinates(this.addressRef);
     this.geolocationService.streetMarkerSubject
-      .pipe(takeUntil(this._ngUnsubscribe))
       .pipe(filter((userMarker: Marker) => MarkerService.check(userMarker) === true))
       .subscribe((userMarker: Marker) => {
         this.mapService.setUserMarker(userMarker);
-    });
+      });
   }
 
   getUserCoordinates(): void {
@@ -43,10 +40,5 @@ export class SearchRestorationComponent implements OnInit, OnDestroy {
     }).catch((errorMessage: String) => {
       // TODO: Display an alert for the user
     });
-  }
-
-  ngOnDestroy() {
-    this._ngUnsubscribe.next();
-    this._ngUnsubscribe.complete();
   }
 }
