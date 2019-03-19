@@ -2,7 +2,7 @@ import { async, ComponentFixture, TestBed } from '@angular/core/testing';
 import { NO_ERRORS_SCHEMA } from '@angular/core';
 import { SearchRestorationComponent } from './search-restoration.component';
 
-describe('SearchRestorationComponent', () => {
+xdescribe('SearchRestorationComponent', () => {
   let component: SearchRestorationComponent;
   let fixture: ComponentFixture<SearchRestorationComponent>;
 
