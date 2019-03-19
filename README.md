@@ -8,8 +8,6 @@
 
 [![Build Status](https://travis-ci.org/BeguinMattis/Test-restoration-front.svg?branch=dev)](https://travis-ci.org/BeguinMattis/Test-restoration-front)
 
-## The deployment URL of the front-end part is : [https://test-restoration-front.herokuapp.com/](https://test-restoration-front.herokuapp.com/ "Link")
-
 ## Features of the Web Application :
 
 - A user can access the Web Application
