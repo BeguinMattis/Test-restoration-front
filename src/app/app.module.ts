@@ -21,7 +21,7 @@ import { MapService } from './services/map/map.service';
     SearchRestorationModule,
     GoogleMapsModule,
     AgmCoreModule.forRoot({
-      apiKey: environment.google_api_key,
+      apiKey: environment.api_key,
       libraries: [
         'places'
       ]

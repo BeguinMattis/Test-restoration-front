@@ -32,8 +32,8 @@ describe('GeolocationService', () => {
         };
         spyOn(http, 'post').and.returnValue(of(response));
         geolocationService['IPGeolocationAPI']().subscribe((position: any) => {
-          expect(http.post).toHaveBeenCalledWith('https://www.googleapis.com/geolocation/v1/geolocate?key=' +
-            environment.google_api_key, null);
+          expect(http.post).toHaveBeenCalledWith(environment.google_geolocation_api_url + '?key=' +
+            environment.api_key, null);
           expect(position).toEqual(response);
         });
     }));
