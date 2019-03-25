@@ -1,8 +1,9 @@
-import { Component, OnInit, ViewChild, ElementRef } from '@angular/core';
+import { Component, OnInit, OnDestroy, ViewChild, ElementRef } from '@angular/core';
 import { FormGroup, FormBuilder } from '@angular/forms';
+import { Subject, Subscription } from 'rxjs';
 import { GeolocationService } from '../../../services/geolocation/geolocation.service';
-import { MapService } from '../../../services/map/map.service';
-import { filter } from 'rxjs/operators';
+import { SearchRestorationService } from '../../../services/search-restoration/search-restoration.service';
+import { filter, takeUntil } from 'rxjs/operators';
 import { Marker } from '../../../models/marker.model';
 import { MarkerService } from '../../../services/marker/marker.service';
 
@@ -11,34 +12,42 @@ import { MarkerService } from '../../../services/marker/marker.service';
   templateUrl: './search-restoration.component.html',
   styleUrls: ['./search-restoration.component.css']
 })
-export class SearchRestorationComponent implements OnInit {
+export class SearchRestorationComponent implements OnInit, OnDestroy {
 
   addressForm: FormGroup;
-
   @ViewChild('address')
   addressRef: ElementRef;
+  private _ngUnsubscribe: Subject<any>;
+  streetMarkerSubscription: Subscription;
 
   constructor(private formBuilder: FormBuilder,
               private geolocationService: GeolocationService,
-              private mapService: MapService) { }
+              private searchRestorationService: SearchRestorationService) { }
 
   ngOnInit() {
     this.addressForm = this.formBuilder.group({
       addressControl: ''
     });
     this.geolocationService.getStreetCoordinates(this.addressRef);
-    this.geolocationService.streetMarkerSubject
+    this._ngUnsubscribe = new Subject<any>();
+    this.streetMarkerSubscription = this.geolocationService.getStreetMarkerSubject()
+      .pipe(takeUntil(this._ngUnsubscribe))
       .pipe(filter((userMarker: Marker) => MarkerService.check(userMarker) === true))
       .subscribe((userMarker: Marker) => {
-        this.mapService.setUserMarker(userMarker);
+        this.searchRestorationService.setUserMarker(userMarker);
       });
   }
 
   getUserCoordinates(): void {
     this.geolocationService.getUserCoordinates().then((userMarker: Marker) => {
-      this.mapService.setUserMarker(userMarker);
-    }).catch((errorMessage: String) => {
+      this.searchRestorationService.setUserMarker(userMarker);
+    }).catch((errorMessage: string) => {
       // TODO: Display an alert for the user
     });
+  }
+
+  ngOnDestroy() {
+    this._ngUnsubscribe.next();
+    this._ngUnsubscribe.complete();
   }
 }

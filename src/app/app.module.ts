@@ -8,7 +8,7 @@ import { GeolocationService } from './services/geolocation/geolocation.service';
 import { environment } from '../environments/environment';
 import { GoogleMapsModule } from './modules/google-maps/google-maps.module';
 import { AgmCoreModule } from '@agm/core';
-import { MapService } from './services/map/map.service';
+import { SearchRestorationService } from './services/search-restoration/search-restoration.service';
 
 @NgModule({
   declarations: [
@@ -29,7 +29,7 @@ import { MapService } from './services/map/map.service';
   ],
   providers: [
     GeolocationService,
-    MapService
+    SearchRestorationService
   ],
   bootstrap: [AppComponent]
 })

@@ -1,7 +1,7 @@
 import { Component, OnInit, OnDestroy } from '@angular/core';
 import { Marker } from '../../../models/marker.model';
 import { Subject, Subscription } from 'rxjs';
-import { MapService } from '../../../services/map/map.service';
+import { SearchRestorationService } from '../../../services/search-restoration/search-restoration.service';
 import { MarkerService } from '../../../services/marker/marker.service';
 import { takeUntil, filter } from 'rxjs/operators';
 
@@ -17,12 +17,12 @@ export class GoogleMapsComponent implements OnInit, OnDestroy {
   private _ngUnsubscribe: Subject<any>;
   userMarkerSubscription: Subscription;
 
-  constructor(private mapService: MapService) { }
+  constructor(private searchRestorationService: SearchRestorationService) { }
 
   ngOnInit() {
     this.restorationMarkers = [];
     this._ngUnsubscribe = new Subject<any>();
-    this.userMarkerSubscription = this.mapService.userMarkerSubject
+    this.userMarkerSubscription = this.searchRestorationService.getUserMarkerSubject()
       .pipe(takeUntil(this._ngUnsubscribe))
       .pipe(filter((userMarker: Marker) => MarkerService.check(userMarker) === true))
       .subscribe((userMarker: Marker) => {
@@ -33,13 +33,16 @@ export class GoogleMapsComponent implements OnInit, OnDestroy {
       longitude: 2.3488,
       display: false
     };
-    this.mapService.setUserMarker(parisMarker);
+    this.searchRestorationService.setUserMarker(parisMarker);
   }
 
-  addRestorationMarker(restorationMarker: Marker): void {
+  addRestorationMarker(restorationMarker: Marker): boolean {
     if (MarkerService.check(restorationMarker) === true) {
       this.restorationMarkers.push(restorationMarker);
+      return true;
     }
+
+    return false;
   }
 
   ngOnDestroy() {
