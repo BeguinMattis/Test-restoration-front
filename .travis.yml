@@ -1,0 +1,27 @@
+sudo: required
+language: node_js
+node_js:
+  - "10"
+branches:
+  only:
+    - master
+    - dev
+before_install:
+  - npm install -g @angular/cli
+install:
+  - npm install
+cache:
+  directories:
+    - "/node_modules"
+script:
+  - npm run lint
+  - npm run test
+  - npm run postinstall
+deploy:
+  provider: heroku
+  api_key:
+    secure: X0qA+wD/bRjjUjR1YkUjTa7p0w+AnEdij7ehvCUD9rzlU5GAtFMacJfZHw0gv2hFQhSARL1VRhgSuqUAoAA745Su4+eaMOsVCcHEyGNwkp2rLBg2AzhrqgTIFIXKA2RokFFbN4pWk/VYPv3lqgPeRi0XN+L8WK6nz0P9SxtQPm8/5ae4q3lvzZ7KRJ5OfF6cw3QswYShc2cupFVipdVkchhi69LJdvNiC4j6bqqz13YUC8bCBZsFagPsybVIRxgGDhKTvOxb/QFFZEK6xb6f+Q0wFSSdVtJf6suprRVsu6jUXD02mBRcp6wyJOusw8URvnBQ47rfVf6P8QGuT/YUKpqPR2gny0iJyKQ65v7sh0UCCfn4822hikDdiWFzIlpG7fvCXlV7iKkKaceWUGM1R7Xj1U01COFtlenk2mT6Ef25dqvPQo8m/IC+av5c3fLwelS7c+Oye3wOxDQKH+gFwts2MeJbIIt+73g7HqWVNDkM/BqfaOV1+6r0lu8Y8uoYmsZpNUzAsvP3s3Fy6lS6w6JxDZxI/9e5vfhO4sSDNMnVX/zjewkNtS02RnIEYxsLRS5L5+xdj5DcEnfuoFhtpvP3agbJjcjsz5cpk+uu5/mtm/s5STuqhlMt8ejXiySB2gCjR3G2+LAQAvUnBiBGGb+Ua/pj7SIrEQsHausGRSc=
+  app: test-restoration-front
+  on:
+    repo: BeguinMattis/Test-restoration-front
+    branch: dev
