@@ -41,7 +41,7 @@ export class GeolocationService {
                display: true,
                accuracy: +position.accuracy
              };
-             console.log('User marker : ' + JSON.stringify(userMarker));
+             console.log('User marker: ' + JSON.stringify(userMarker));
              resolve(userMarker);
            }, ((error: any) => {
              errorMessage = 'Google Geolocation API returned an error!';
@@ -64,7 +64,7 @@ export class GeolocationService {
               longitude: +position.coords.longitude,
               display: true
             };
-            console.log('User marker : ' + JSON.stringify(userMarker));
+            console.log('User marker: ' + JSON.stringify(userMarker));
             resolve(userMarker);
           },
           (error: PositionError) => {
@@ -121,7 +121,7 @@ export class GeolocationService {
             longitude: +addressResult.geometry.location.lng(),
             display: true
           };
-          console.log('User marker : ' + JSON.stringify(userMarker));
+          console.log('User marker: ' + JSON.stringify(userMarker));
           this.streetMarkerSubject.next(userMarker);
         });
       });

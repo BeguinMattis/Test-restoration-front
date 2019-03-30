@@ -3,6 +3,9 @@ import { NgModule } from '@angular/core';
 import { AppRoutingModule } from './app-routing.module';
 import { HttpClientModule } from '@angular/common/http';
 import { AppComponent } from './app.component';
+import { SocialLoginModule, AuthServiceConfig } from 'angularx-social-login';
+import { getAuthServiceConfig } from './configurations/social-login.config';
+import { AuthenticationComponent } from './pages/authentication/authentication.component';
 import { SearchRestorationModule } from './modules/search-restoration/search-restoration.module';
 import { GeolocationService } from './services/geolocation/geolocation.service';
 import { environment } from '../environments/environment';
@@ -12,7 +15,8 @@ import { SearchRestorationService } from './services/search-restoration/search-r
 
 @NgModule({
   declarations: [
-    AppComponent
+    AppComponent,
+    AuthenticationComponent
   ],
   imports: [
     BrowserModule,
@@ -25,12 +29,17 @@ import { SearchRestorationService } from './services/search-restoration/search-r
       libraries: [
         'places'
       ]
-    })
+    }),
+    SocialLoginModule
   ],
   providers: [
     GeolocationService,
-    SearchRestorationService
+    SearchRestorationService,
+    {
+      provide: AuthServiceConfig,
+      useFactory: getAuthServiceConfig
+    }
   ],
-  bootstrap: [AppComponent]
+  bootstrap: [ AppComponent ]
 })
 export class AppModule { }
