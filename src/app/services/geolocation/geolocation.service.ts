@@ -1,7 +1,7 @@
 import { Injectable, ElementRef, NgZone } from '@angular/core';
 import { Subject, Observable } from 'rxjs';
 import { Marker } from '../../models/marker.model';
-import { HttpClient } from '@angular/common/http';
+import { HttpClient, HttpErrorResponse } from '@angular/common/http';
 import { MapsAPILoader } from '@agm/core';
 import { HTML5GeolocationAPI } from '../../enums/html5-geolocation-api.enum';
 import { environment } from '../../../environments/environment';
@@ -43,9 +43,9 @@ export class GeolocationService {
              };
              console.log('User marker: ' + JSON.stringify(userMarker));
              resolve(userMarker);
-           }, ((error: any) => {
+           }, ((error: HttpErrorResponse) => {
              errorMessage = 'Google Geolocation API returned an error!';
-             console.error(error);
+             console.error('Error: ' + error);
              reject(errorMessage);
            }));
         } else {
