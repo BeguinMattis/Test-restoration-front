@@ -1,7 +1,7 @@
 export interface User {
-  lastName: string;
-  firstName: string;
+  family_name: string;
+  given_name: string;
   email: string;
-  photoUrl: string;
+  picture: string;
   token: string;
 }

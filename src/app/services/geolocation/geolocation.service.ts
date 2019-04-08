@@ -99,7 +99,7 @@ export class GeolocationService {
   }
 
   private IPGeolocationAPI(): Observable<any> {
-    return this.http.post(environment.google_geolocation_api_url + '?key=' + environment.api_key, null);
+    return this.http.post(environment.google_geolocation_api_base_url_resource_path + '?key=' + environment.api_key, null);
   }
 
   getStreetCoordinates(addressRef: ElementRef) {

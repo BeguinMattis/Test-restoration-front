@@ -1,6 +1,8 @@
 import { Injectable } from '@angular/core';
 import { User } from '../../models/user.model';
+import { HttpClient, HttpHeaders, HttpErrorResponse } from '@angular/common/http';
 import { Router } from '@angular/router';
+import { environment } from '../../../environments/environment';
 import { Payload } from '../../models/payload.model';
 
 @Injectable({
@@ -9,7 +11,8 @@ import { Payload } from '../../models/payload.model';
 export class AuthenticationService {
   private user: User;
 
-  constructor(private router: Router) {
+  constructor(private http: HttpClient,
+              private router: Router) {
     this.user = null;
   }
 
@@ -31,9 +34,25 @@ export class AuthenticationService {
     }
   }
 
-  login(user: User): void {
-    this.user = user;
-    window.localStorage.setItem('test-restoration-user', JSON.stringify(this.user));
+  login(idToken: string): Promise<void | string> {
+    return new Promise((resolve, reject) => {
+      const url: string = environment.test_restoration.back_api_base_url + environment.test_restoration.authentication_google_resource_path;
+      const options = {
+        headers: new HttpHeaders({
+          'Authorization': 'Bearer ' + idToken,
+          'Content-Type': 'application/json'
+        })
+      };
+      this.http.get<User>(url, options).subscribe((user: User) => {
+        this.user = user;
+        window.localStorage.setItem('test-restoration-user', JSON.stringify(this.user));
+        resolve();
+      }, (error: HttpErrorResponse) => {
+        const errorMessage = 'Google Authentication API returned an error!';
+        console.error('Error: ' + JSON.stringify(error));
+        reject(errorMessage);
+      });
+    });
   }
 
   private getPayload(): Payload {
