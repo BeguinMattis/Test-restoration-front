@@ -1,5 +1,6 @@
 import { Injectable } from '@angular/core';
 import { User } from '../../models/user.model';
+import { AuthService, GoogleLoginProvider } from 'angularx-social-login';
 import { HttpClient, HttpHeaders, HttpErrorResponse } from '@angular/common/http';
 import { Router } from '@angular/router';
 import { environment } from '../../../environments/environment';
@@ -11,7 +12,8 @@ import { Payload } from '../../models/payload.model';
 export class AuthenticationService {
   private user: User;
 
-  constructor(private http: HttpClient,
+  constructor(private authService: AuthService,
+              private http: HttpClient,
               private router: Router) {
     this.user = null;
   }
@@ -34,21 +36,28 @@ export class AuthenticationService {
     }
   }
 
-  login(idToken: string): Promise<void | string> {
+  login(): Promise<void | string> {
     return new Promise((resolve, reject) => {
-      const url: string = environment.test_restoration.back_api_base_url + environment.test_restoration.authentication_google_resource_path;
-      const options = {
-        headers: new HttpHeaders({
-          'Authorization': 'Bearer ' + idToken,
-          'Content-Type': 'application/json'
-        })
-      };
-      this.http.get<User>(url, options).subscribe((user: User) => {
-        this.user = user;
-        window.localStorage.setItem('test-restoration-user', JSON.stringify(this.user));
-        resolve();
-      }, (error: HttpErrorResponse) => {
-        const errorMessage = 'Google Authentication API returned an error!';
+      this.authService.signIn(GoogleLoginProvider.PROVIDER_ID).then((data: any) => {
+        const url: string = environment.test_restoration.back_api_base_url +
+          environment.test_restoration.authentication_google_resource_path;
+        const options = {
+          headers: new HttpHeaders({
+            'Authorization': 'Bearer ' + data.idToken,
+            'Content-Type': 'application/json'
+          })
+        };
+        this.http.get<User>(url, options).subscribe((user: User) => {
+          this.user = user;
+          window.localStorage.setItem('test-restoration-user', JSON.stringify(this.user));
+          resolve();
+        }, (error: HttpErrorResponse) => {
+          const errorMessage = 'Google Authentication API returned an error!';
+          console.error('Error: ' + JSON.stringify(error));
+          reject(errorMessage);
+        });
+      }).catch((error: any) => {
+        const errorMessage = 'Angular RX Social Login returned an error!';
         console.error('Error: ' + JSON.stringify(error));
         reject(errorMessage);
       });
@@ -78,6 +87,7 @@ export class AuthenticationService {
   signOut(): void {
     this.user = null;
     window.localStorage.removeItem('test-restoration-user');
+    this.authService.signOut();
     this.router.navigate(['authentication']);
   }
 }

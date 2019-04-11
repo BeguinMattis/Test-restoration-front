@@ -1,7 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { User } from '../../models/user.model';
 import { AuthenticationService } from '../../services/authentication/authentication.service';
-import { AuthService } from 'angularx-social-login';
 
 @Component({
   selector: 'app-header',
@@ -11,8 +10,7 @@ import { AuthService } from 'angularx-social-login';
 export class HeaderComponent implements OnInit {
   user: User;
 
-  constructor(private authenticationService: AuthenticationService,
-              private authService: AuthService) { }
+  constructor(private authenticationService: AuthenticationService) { }
 
   ngOnInit() {
     this.user = this.authenticationService.getUser();
@@ -20,6 +18,5 @@ export class HeaderComponent implements OnInit {
 
   signOut(): void {
     this.authenticationService.signOut();
-    this.authService.signOut();
   }
 }

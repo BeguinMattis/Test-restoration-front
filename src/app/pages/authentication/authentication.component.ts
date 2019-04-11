@@ -1,5 +1,4 @@
 import { Component, OnInit } from '@angular/core';
-import { AuthService, GoogleLoginProvider } from 'angularx-social-login';
 import { AuthenticationService } from '../../services/authentication/authentication.service';
 import { Router } from '@angular/router';
 
@@ -10,8 +9,7 @@ import { Router } from '@angular/router';
 })
 export class AuthenticationComponent implements OnInit {
 
-  constructor(private authService: AuthService,
-              private authenticationService: AuthenticationService,
+  constructor(private authenticationService: AuthenticationService,
               private router: Router) { }
 
   ngOnInit() {
@@ -21,14 +19,9 @@ export class AuthenticationComponent implements OnInit {
   }
 
   signInWithGoogle(): void {
-    this.authService.signIn(GoogleLoginProvider.PROVIDER_ID).then((data: any) => {
-      this.authenticationService.login(data.idToken).then(() => {
+    this.authenticationService.login().then(() => {
         this.router.navigate(['search']);
-      }).catch((errorMessage: string) => {
-        // TODO: Display an alert for the user
-      });
-    }).catch((error: any) => {
-      console.error('Error: ' + JSON.stringify(error));
+    }).catch((errorMessage: string) => {
       // TODO: Display an alert for the user
     });
   }
