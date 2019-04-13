@@ -36,7 +36,7 @@ export class AuthenticationService {
     }
   }
 
-  login(): Promise<void | string> {
+  signIn(): Promise<void | string> {
     return new Promise((resolve, reject) => {
       this.authService.signIn(GoogleLoginProvider.PROVIDER_ID).then((data: any) => {
         const url: string = environment.test_restoration.back_api_base_url +

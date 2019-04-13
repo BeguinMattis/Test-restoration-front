@@ -19,7 +19,7 @@ export class AuthenticationComponent implements OnInit {
   }
 
   signInWithGoogle(): void {
-    this.authenticationService.login().then(() => {
+    this.authenticationService.signIn().then(() => {
         this.router.navigate(['search']);
     }).catch((errorMessage: string) => {
       // TODO: Display an alert for the user
