@@ -1,7 +1,7 @@
 import { Injectable, ElementRef, NgZone } from '@angular/core';
 import { Subject, Observable } from 'rxjs';
 import { Marker } from '../../models/marker.model';
-import { HttpClient } from '@angular/common/http';
+import { HttpClient, HttpErrorResponse } from '@angular/common/http';
 import { MapsAPILoader } from '@agm/core';
 import { HTML5GeolocationAPI } from '../../enums/html5-geolocation-api.enum';
 import { environment } from '../../../environments/environment';
@@ -41,11 +41,11 @@ export class GeolocationService {
                display: true,
                accuracy: +position.accuracy
              };
-             console.log('User marker : ' + JSON.stringify(userMarker));
+             console.log('User marker: ' + JSON.stringify(userMarker));
              resolve(userMarker);
-           }, ((error: any) => {
+           }, ((error: HttpErrorResponse) => {
              errorMessage = 'Google Geolocation API returned an error!';
-             console.error(error);
+             console.error('Error: ' + error);
              reject(errorMessage);
            }));
         } else {
@@ -64,7 +64,7 @@ export class GeolocationService {
               longitude: +position.coords.longitude,
               display: true
             };
-            console.log('User marker : ' + JSON.stringify(userMarker));
+            console.log('User marker: ' + JSON.stringify(userMarker));
             resolve(userMarker);
           },
           (error: PositionError) => {
@@ -99,7 +99,7 @@ export class GeolocationService {
   }
 
   private IPGeolocationAPI(): Observable<any> {
-    return this.http.post(environment.google_geolocation_api_url + '?key=' + environment.api_key, null);
+    return this.http.post(environment.google_geolocation_api_base_url_resource_path + '?key=' + environment.api_key, null);
   }
 
   getStreetCoordinates(addressRef: ElementRef) {
@@ -121,7 +121,7 @@ export class GeolocationService {
             longitude: +addressResult.geometry.location.lng(),
             display: true
           };
-          console.log('User marker : ' + JSON.stringify(userMarker));
+          console.log('User marker: ' + JSON.stringify(userMarker));
           this.streetMarkerSubject.next(userMarker);
         });
       });

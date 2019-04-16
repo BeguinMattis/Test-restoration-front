@@ -1,4 +1,4 @@
-import {async, ComponentFixture, TestBed, inject, fakeAsync, tick } from '@angular/core/testing';
+import { async, ComponentFixture, TestBed, inject, fakeAsync, tick } from '@angular/core/testing';
 import { SearchRestorationComponent } from './search-restoration.component';
 import { GeolocationService } from '../../../services/geolocation/geolocation.service';
 import { ReactiveFormsModule } from '@angular/forms';

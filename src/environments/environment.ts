@@ -4,8 +4,13 @@
 
 export const environment = {
   production: false,
+  test_restoration: {
+    back_api_base_url: 'https://test-restoration-back.herokuapp.com',
+    authentication_google_resource_path: '/authentication/google'
+  },
   api_key: 'AIzaSyB8jOSKqZ5Bre5C5zHgVedJgV8LLz-6w24',
-  google_geolocation_api_url: 'https://www.googleapis.com/geolocation/v1/geolocate'
+  client_id: '78163528702-v3nnjkp8dbr7k43i90pd5bb4e5uatv1h.apps.googleusercontent.com',
+  google_geolocation_api_base_url_resource_path: 'https://www.googleapis.com/geolocation/v1/geolocate'
 };
 
 /*
