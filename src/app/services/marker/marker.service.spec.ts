@@ -18,12 +18,12 @@ describe('MarkerService', () => {
         longitude: 0,
         display: false
       };
-      expect(MarkerService.check(marker)).toEqual(true);
+      expect(MarkerService.check(marker)).toBeTruthy();
     });
 
     it('Should return false', () => {
       const marker: any = null;
-      expect(MarkerService.check(marker)).toEqual(false);
+      expect(MarkerService.check(marker)).toBeFalsy();
     });
   });
 });

@@ -17,7 +17,7 @@ describe('GoogleMapsComponent', () => {
         NO_ERRORS_SCHEMA
       ]
     })
-    .compileComponents();
+      .compileComponents();
   }));
 
   beforeEach(() => {
@@ -54,22 +54,22 @@ describe('GoogleMapsComponent', () => {
       };
       spyOn(MarkerService, 'check').and.returnValue(true);
       component.restorationMarkers = [];
-      const result = component.addRestorationMarker(restorationMarker);
+      const result: boolean = component.addRestorationMarker(restorationMarker);
       expect(MarkerService.check).toHaveBeenCalledWith(restorationMarker);
       expect(component.restorationMarkers.length).toEqual(1);
       expect(component.restorationMarkers).toEqual([restorationMarker]);
-      expect(result).toEqual(true);
+      expect(result).toBeTruthy();
     });
 
     it('Should not add a restorationMarker object in the restorationMarkers array', () => {
       const restorationMarker: any = null;
       spyOn(MarkerService, 'check').and.returnValue(false);
       component.restorationMarkers = [];
-      const result = component.addRestorationMarker(restorationMarker);
+      const result: boolean = component.addRestorationMarker(restorationMarker);
       expect(MarkerService.check).toHaveBeenCalledWith(restorationMarker);
       expect(component.restorationMarkers.length).toEqual(0);
       expect(component.restorationMarkers).toEqual([]);
-      expect(result).toEqual(false);
+      expect(result).toBeFalsy();
     });
   });
 

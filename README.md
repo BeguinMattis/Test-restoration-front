@@ -47,6 +47,10 @@
 - Development of user authentication
 - Development of part of the CRUD (= Users)
 
+Link to download the demonstration video of the first two course sessions :
+
+[https://drive.google.com/file/d/1CuJqTequoj8bMbo2JpSpWPZ8WZPj5a76/view?usp=sharing](https://drive.google.com/file/d/1CuJqTequoj8bMbo2JpSpWPZ8WZPj5a76/view?usp=sharing)
+
 ### Course session of Mai 23 :
 
 - Using an API to retrieve the list of restaurants
