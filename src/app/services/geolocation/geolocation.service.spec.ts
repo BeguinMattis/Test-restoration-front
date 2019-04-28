@@ -41,29 +41,30 @@ describe('GeolocationService', () => {
   describe('getUserCoordinates', () => {
     it('Should return the user coordinates from the HTML5GeolocationAPI method',
       inject([GeolocationService], (geolocationService: GeolocationService) => {
-      const response: Marker = {
-        latitude: 0,
-        longitude: 0,
-        display: false
-      };
-      spyOn<any>(geolocationService, 'HTML5GeolocationAPI').and.returnValue(Promise.resolve(response));
-      spyOn<any>(geolocationService, 'IPGeolocationAPI');
-      geolocationService.getUserCoordinates().then((userMarker: Marker) => {
-        expect(geolocationService['HTML5GeolocationAPI']).toHaveBeenCalled();
-        expect(geolocationService['IPGeolocationAPI']).not.toHaveBeenCalled();
-        expect(userMarker).toEqual(response);
-      });
-    }));
+        const response: Marker = {
+          latitude: 0,
+          longitude: 0,
+          display: false
+        };
+        spyOn<any>(geolocationService, 'HTML5GeolocationAPI').and.returnValue(Promise.resolve(response));
+        spyOn<any>(geolocationService, 'IPGeolocationAPI');
+        geolocationService.getUserCoordinates().then((userMarker: Marker) => {
+          expect(geolocationService['HTML5GeolocationAPI']).toHaveBeenCalled();
+          expect(geolocationService['IPGeolocationAPI']).not.toHaveBeenCalled();
+          expect(userMarker).toEqual(response);
+        });
+      })
+    );
 
     it('Should return the user coordinates from the IPGeolocationAPI method',
       inject([GeolocationService], (geolocationService: GeolocationService) => {
         spyOn<any>(geolocationService, 'HTML5GeolocationAPI').and.returnValue(Promise.reject(HTML5GeolocationAPI.POSITION_UNAVAILABLE));
         const position: any = {
-            location: {
-              lat: 0,
-              lng: 0
-            },
-            accuracy: 0
+          location: {
+            lat: 0,
+            lng: 0
+          },
+          accuracy: 0
         };
         spyOn<any>(geolocationService, 'IPGeolocationAPI').and.returnValue(of(position));
         const result: Marker = {
@@ -78,7 +79,8 @@ describe('GeolocationService', () => {
           expect(geolocationService['IPGeolocationAPI']).toHaveBeenCalled();
           expect(userMarker).toEqual(result);
         });
-      }));
+      })
+    );
 
     it('Should not return the user coordinates because the IPGeolocationAPI method return an error',
       inject([GeolocationService], (geolocationService: GeolocationService) => {
@@ -90,7 +92,8 @@ describe('GeolocationService', () => {
           expect(geolocationService['IPGeolocationAPI']).toHaveBeenCalled();
           expect(errorMessage).toEqual('Google Geolocation API returned an error!');
         });
-      }));
+      })
+    );
 
     it('Should not return the user coordinates because the HTML5GeolocationAPI method return an error',
       inject([GeolocationService], (geolocationService: GeolocationService) => {
@@ -101,12 +104,13 @@ describe('GeolocationService', () => {
           expect(geolocationService['IPGeolocationAPI']).not.toHaveBeenCalled();
           expect(errorMessage).toEqual(HTML5GeolocationAPI.PERMISSION_DENIED);
         });
-      }));
+      })
+    );
   });
 
   describe('IPGeolocationAPI', () => {
     it('Should make the HTTP call to get the user coordinates', inject([GeolocationService, HttpClient],
-      (geolocationService: GeolocationService, http: HttpClient) => {
+      (geolocationService: GeolocationService, httpClient: HttpClient) => {
         const response: any = {
           location: {
             lat: 0,
@@ -114,12 +118,12 @@ describe('GeolocationService', () => {
           },
           accuracy: 0
         };
-        spyOn(http, 'post').and.returnValue(of(response));
+        spyOn(httpClient, 'post').and.returnValue(of(response));
         geolocationService['IPGeolocationAPI']().subscribe((position: any) => {
-          expect(http.post).toHaveBeenCalledWith(environment.google_geolocation_api_url + '?key=' +
+          expect(httpClient.post).toHaveBeenCalledWith(environment.google_geolocation_api_base_url_resource_path + '?key=' +
             environment.api_key, null);
           expect(position).toEqual(response);
         });
-    }));
+      }));
   });
 });

@@ -38,20 +38,20 @@ describe('SearchRestorationService', () => {
       };
       spyOn(MarkerService, 'check').and.returnValue(true);
       spyOn(searchRestorationService['userMarkerSubject'], 'next');
-      const result = searchRestorationService.setUserMarker(userMarker);
+      const result: boolean = searchRestorationService.setUserMarker(userMarker);
       expect(MarkerService.check).toHaveBeenCalledWith(userMarker);
       expect(searchRestorationService['userMarkerSubject'].next).toHaveBeenCalledWith(userMarker);
-      expect(result).toEqual(true);
+      expect(result).toBeTruthy();
     }));
 
     it('Should not send the userMarker object', inject([SearchRestorationService], (searchRestorationService: SearchRestorationService) => {
       const userMarker: any = null;
       spyOn(MarkerService, 'check').and.returnValue(false);
       spyOn(searchRestorationService['userMarkerSubject'], 'next');
-      const result = searchRestorationService.setUserMarker(userMarker);
+      const result: boolean = searchRestorationService.setUserMarker(userMarker);
       expect(MarkerService.check).toHaveBeenCalledWith(userMarker);
       expect(searchRestorationService['userMarkerSubject'].next).not.toHaveBeenCalledWith(userMarker);
-      expect(result).toEqual(false);
+      expect(result).toBeFalsy();
     }));
   });
 });

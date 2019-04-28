@@ -1,4 +1,4 @@
-import {async, ComponentFixture, TestBed, inject, fakeAsync, tick } from '@angular/core/testing';
+import { async, ComponentFixture, TestBed, inject, fakeAsync, tick } from '@angular/core/testing';
 import { SearchRestorationComponent } from './search-restoration.component';
 import { GeolocationService } from '../../../services/geolocation/geolocation.service';
 import { ReactiveFormsModule } from '@angular/forms';
@@ -26,7 +26,7 @@ describe('SearchRestorationComponent', () => {
         }
       ]
     })
-    .compileComponents();
+      .compileComponents();
   }));
 
   beforeEach(() => {
@@ -35,43 +35,44 @@ describe('SearchRestorationComponent', () => {
   });
 
   describe('ngOnInit', () => {
-    it('Should create the component', inject([GeolocationService, SearchRestorationService],
-      (geolocationService: GeolocationService, searchRestorationService: SearchRestorationService) => {
-      const userMarker: Marker = {
-        latitude: 0,
-        longitude: 0,
-        display: false
-      };
-      geolocationServiceMock.getStreetMarkerSubject.and.returnValue(of(userMarker));
-      fixture.detectChanges();
-      spyOn(MarkerService, 'check').and.returnValue(true);
-      spyOn(searchRestorationService, 'setUserMarker');
-      component.ngOnInit();
-      expect(geolocationService.getStreetCoordinates).toHaveBeenCalled();
-      expect(MarkerService.check).toHaveBeenCalledWith(userMarker);
-      expect(searchRestorationService.setUserMarker).toHaveBeenCalledWith(userMarker);
-      expect(component).toBeTruthy();
-    }));
+    it('Should create the component', inject([SearchRestorationService],
+      (searchRestorationService: SearchRestorationService) => {
+        const userMarker: Marker = {
+          latitude: 0,
+          longitude: 0,
+          display: false
+        };
+        geolocationServiceMock.getStreetMarkerSubject.and.returnValue(of(userMarker));
+        fixture.detectChanges();
+        spyOn(MarkerService, 'check').and.returnValue(true);
+        spyOn(searchRestorationService, 'setUserMarker');
+        component.ngOnInit();
+        expect(geolocationServiceMock.getStreetCoordinates).toHaveBeenCalled();
+        expect(MarkerService.check).toHaveBeenCalledWith(userMarker);
+        expect(searchRestorationService.setUserMarker).toHaveBeenCalledWith(userMarker);
+        expect(component).toBeTruthy();
+      }));
   });
 
   describe('getUserCoordinates', () => {
     it('Should get and send the user coordinates to the setUserMarker method of the SearchRestorationService',
-      fakeAsync(inject([GeolocationService, SearchRestorationService], (geolocationService: GeolocationService,
-        searchRestorationService: SearchRestorationService)  => {
-      const streetMarkerSubject = new Subject();
-      geolocationServiceMock.getStreetMarkerSubject.and.returnValue(streetMarkerSubject.asObservable());
-      const userMarker: Marker = {
-        latitude: 0,
-        longitude: 0,
-        display: false
-      };
-      geolocationServiceMock.getUserCoordinates.and.returnValue(Promise.resolve(userMarker));
-      fixture.detectChanges();
-      spyOn(searchRestorationService, 'setUserMarker');
-      component.getUserCoordinates();
-      tick();
-      expect(searchRestorationService.setUserMarker).toHaveBeenCalledWith(userMarker);
-    })));
+      fakeAsync(inject([SearchRestorationService], (searchRestorationService: SearchRestorationService)  => {
+        const streetMarkerSubject = new Subject();
+        geolocationServiceMock.getStreetMarkerSubject.and.returnValue(streetMarkerSubject.asObservable());
+        const userMarker: Marker = {
+          latitude: 0,
+          longitude: 0,
+          display: false
+        };
+        geolocationServiceMock.getUserCoordinates.and.returnValue(Promise.resolve(userMarker));
+        fixture.detectChanges();
+        spyOn(searchRestorationService, 'setUserMarker');
+        component.getUserCoordinates();
+        tick();
+        expect(geolocationServiceMock.getUserCoordinates).toHaveBeenCalled();
+        expect(searchRestorationService.setUserMarker).toHaveBeenCalledWith(userMarker);
+      }))
+    );
   });
 
   describe('ngOnDestroy', () => {
