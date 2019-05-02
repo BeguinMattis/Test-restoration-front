@@ -16,6 +16,7 @@ export class GoogleMapsComponent implements OnInit, OnDestroy {
   restorationMarkers: Marker[];
   private _ngUnsubscribe: Subject<any>;
   userMarkerSubscription: Subscription;
+  restaurantMarkerSubscription: Subscription;
 
   constructor(private searchRestorationService: SearchRestorationService) { }
 
@@ -27,6 +28,13 @@ export class GoogleMapsComponent implements OnInit, OnDestroy {
       .pipe(filter((userMarker: Marker) => MarkerService.check(userMarker) === true))
       .subscribe((userMarker: Marker) => {
         this.userMarker = userMarker;
+      });
+    this.restaurantMarkerSubscription = this.searchRestorationService.getRestaurantMarkerSubject()
+      .pipe(takeUntil(this._ngUnsubscribe))
+      .subscribe((restaurantMarker: Marker[]) => {
+        console.log('toto');
+        console.log(restaurantMarker);
+        this.restorationMarkers = restaurantMarker;
       });
     const parisMarker: Marker = {
       latitude: 48.8534,

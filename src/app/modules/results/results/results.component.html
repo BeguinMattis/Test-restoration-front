@@ -1,0 +1,15 @@
+<p>Liste des restaurants à proximité de vous :</p>
+<ng-container *ngIf="restaurants !== []">
+  <div *ngFor="let restaurant of restaurants">
+    <p>ID : {{ restaurant.id }}</p>
+    <p>Nom : {{ restaurant.name }}</p>
+    <p>Latitude : {{ restaurant.latitude }}</p>
+    <p>Longitude : {{ restaurant.longitude }}</p>
+    <p>Adresse : {{ restaurant.address }}</p>
+    <p>Ouvert : {{ restaurant.isOpen ? restaurant.isOpen : '-' }}</p>
+    <p>Photographie : {{ restaurant.photo ? restaurant.photo : '-' }}</p>
+    <p>Note : {{ restaurant.rating ? restaurant.rating : '-' }}</p>
+    <p>Nombre de note : {{ restaurant.number_ratings ? restaurant.number_ratings : '-' }}</p>
+    <button (click)="addReview(restaurant)">Donner un avis</button>
+  </div>
+</ng-container>

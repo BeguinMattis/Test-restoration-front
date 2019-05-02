@@ -16,9 +16,11 @@ import { GeolocationService } from './services/geolocation/geolocation.service';
 import { SearchRestorationService } from './services/search-restoration/search-restoration.service';
 import { GoogleMapsModule } from './modules/google-maps/google-maps.module';
 import { AgmCoreModule } from '@agm/core';
+import { ResultsModule } from './modules/results/results.module';
 import { environment } from '../environments/environment';
 import { BackService } from './services/back/back.service';
 import { NotFoundComponent } from './pages/not-found/not-found.component';
+import { AddReviewModule} from './modules/add-review/add-review.module';
 
 @NgModule({
   declarations: [
@@ -42,7 +44,9 @@ import { NotFoundComponent } from './pages/not-found/not-found.component';
       libraries: [
         'places'
       ]
-    })
+    }),
+    ResultsModule,
+    AddReviewModule
   ],
   providers: [
     AuthenticationService,

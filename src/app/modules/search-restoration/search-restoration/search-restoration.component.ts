@@ -46,6 +46,10 @@ export class SearchRestorationComponent implements OnInit, OnDestroy {
     });
   }
 
+  getRestaurantsCoordinates(): void {
+    this.searchRestorationService.getRestaurantsCoordinates(2000, this.addressRef);
+  }
+
   ngOnDestroy() {
     this._ngUnsubscribe.next();
     this._ngUnsubscribe.complete();
