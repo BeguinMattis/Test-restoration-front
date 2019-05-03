@@ -1,1 +1,33 @@
-<button mat-raised-button (click)="onNoClick()">No Thanks</button>
+<h1 mat-dialog-title>Ajouter un avis</h1>
+<form [formGroup]="menuForm" (ngSubmit)="onSubmitForm()">
+  <div mat-dialog-content>
+    <div>
+      <label for="entreeName">Nom entréee</label>
+      <input type="text" id="entreeName" formControlName="entreeName">
+    </div>
+    <div>
+      <label for="entreeAvis">Avis entrée</label>
+      <input type="text" id="entreeAvis" formControlName="entreeAvis">
+    </div>
+    <div>
+      <label for="platName">Nom plat</label>
+      <input type="text" id="platName" formControlName="platName">
+    </div>
+    <div>
+      <label for="platAvis">Avis plat</label>
+      <input type="text" id="platAvis" formControlName="platAvis">
+    </div>
+    <div>
+      <label for="dessertName">Nom dessert</label>
+      <input type="text" id="dessertName" formControlName="dessertName">
+    </div>
+    <div>
+      <label for="dessertAvis">Avis dessert</label>
+      <input type="text" id="dessertAvis" formControlName="dessertAvis">
+    </div>
+  </div>
+  <div mat-dialog-actions>
+    <button mat-raised-button (click)="onNoClick()">Quitter</button>
+    <button mat-raised-button type="submit" [disabled]="menuForm.invalid">Envoyer</button>
+  </div>
+</form>

@@ -36,7 +36,7 @@ export class ResultsComponent implements OnInit, OnDestroy {
   addReview(restaurant: Restaurant): void {
     this.dialog.open(AddReviewComponent, {
       width: '250px',
-      data: {name: 'toto', animal: 'titi'}
+      data: {restaurant: restaurant}
     });
   }
 
