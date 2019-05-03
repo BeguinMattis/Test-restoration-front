@@ -14,7 +14,6 @@ import PlaceResult = google.maps.places.PlaceResult;
   providedIn: 'root'
 })
 export class GeolocationService {
-
   private streetMarkerSubject: Subject<Marker>;
 
   constructor(private http: HttpClient,

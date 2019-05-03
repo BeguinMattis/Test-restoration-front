@@ -19,7 +19,7 @@ import { AgmCoreModule } from '@agm/core';
 import { ResultsModule } from './modules/results/results.module';
 import { environment } from '../environments/environment';
 import { BackService } from './services/back/back.service';
-import { ReviewService } from './services/review/review.service';
+import { OpinionService } from './services/opinion/opinion.service';
 import { NotFoundComponent } from './pages/not-found/not-found.component';
 import { AddReviewModule} from './modules/add-review/add-review.module';
 
@@ -58,7 +58,7 @@ import { AddReviewModule} from './modules/add-review/add-review.module';
       useFactory: getAuthServiceConfig
     },
     BackService,
-    ReviewService
+    OpinionService
   ],
   bootstrap: [ AppComponent ]
 })
