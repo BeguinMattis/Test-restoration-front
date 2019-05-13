@@ -8,11 +8,11 @@ import { Marker } from '../../../models/marker.model';
 import { MarkerService } from '../../../services/marker/marker.service';
 
 @Component({
-  selector: 'app-search-restoration',
-  templateUrl: './search-restoration.component.html',
-  styleUrls: ['./search-restoration.component.css']
+  selector: 'app-search',
+  templateUrl: './search.component.html',
+  styleUrls: ['./search.component.css']
 })
-export class SearchRestorationComponent implements OnInit, OnDestroy {
+export class SearchComponent implements OnInit, OnDestroy {
 
   addressForm: FormGroup;
   @ViewChild('address')

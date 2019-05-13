@@ -1,6 +1,6 @@
 import { TestBed, inject } from '@angular/core/testing';
 import { MarkerService } from './marker.service';
-import { Marker } from '../../models/marker.model';
+import { UserMarker } from '../../models/user-marker.model';
 
 describe('MarkerService', () => {
   beforeEach(() => TestBed.configureTestingModule({}));
@@ -13,10 +13,9 @@ describe('MarkerService', () => {
 
   describe('check', () => {
     it('Should return true', () => {
-      const marker: Marker = {
+      const marker: UserMarker = {
         latitude: 0,
-        longitude: 0,
-        display: false
+        longitude: 0
       };
       expect(MarkerService.check(marker)).toBeTruthy();
     });

@@ -1,6 +1,0 @@
-<agm-map [latitude]="userMarker.latitude" [longitude]="userMarker.longitude">
-  <agm-marker *ngIf="userMarker.display === true" [latitude]="userMarker.latitude" [longitude]="userMarker.longitude"></agm-marker>
-  <ng-container *ngFor="let restaurant of restorationMarkers">
-    <agm-marker [latitude]="restaurant.latitude" [longitude]="restaurant.longitude"></agm-marker>
-  </ng-container>
-</agm-map>

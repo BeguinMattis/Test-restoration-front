@@ -1,11 +1,11 @@
 import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
-import { SearchRestorationComponent } from './search-restoration/search-restoration.component';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
+import { SearchComponent } from './search/search.component';
 
 @NgModule({
   declarations: [
-    SearchRestorationComponent
+    SearchComponent
   ],
   imports: [
     CommonModule,
@@ -13,7 +13,7 @@ import { FormsModule, ReactiveFormsModule } from '@angular/forms';
     ReactiveFormsModule
   ],
   exports: [
-    SearchRestorationComponent
+    SearchComponent
   ]
 })
-export class SearchRestorationModule { }
+export class SearchModule { }

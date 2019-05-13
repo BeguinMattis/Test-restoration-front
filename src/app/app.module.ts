@@ -21,7 +21,7 @@ import { environment } from '../environments/environment';
 import { BackService } from './services/back/back.service';
 import { OpinionService } from './services/opinion/opinion.service';
 import { NotFoundComponent } from './pages/not-found/not-found.component';
-import { AddReviewModule} from './modules/add-review/add-review.module';
+import { AddOpinionModule } from './modules/add-opinion/add-opinion.module';
 
 @NgModule({
   declarations: [
@@ -47,7 +47,7 @@ import { AddReviewModule} from './modules/add-review/add-review.module';
       ]
     }),
     ResultsModule,
-    AddReviewModule
+    AddOpinionModule
   ],
   providers: [
     AuthenticationService,
