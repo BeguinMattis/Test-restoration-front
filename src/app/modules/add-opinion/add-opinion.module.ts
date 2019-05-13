@@ -1,19 +1,24 @@
 import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
-import { SearchRestorationComponent } from './search-restoration/search-restoration.component';
+import { SharedModule } from '../../shared/shared.module';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
+import { AddOpinionComponent } from './add-opinion/add-opinion.component';
 
 @NgModule({
   declarations: [
-    SearchRestorationComponent
+    AddOpinionComponent
+  ],
+  entryComponents: [
+    AddOpinionComponent
   ],
   imports: [
     CommonModule,
+    SharedModule,
     FormsModule,
     ReactiveFormsModule
   ],
   exports: [
-    SearchRestorationComponent
+    AddOpinionComponent
   ]
 })
-export class SearchRestorationModule { }
+export class AddOpinionModule { }

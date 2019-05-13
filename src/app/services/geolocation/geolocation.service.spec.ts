@@ -2,19 +2,26 @@ import { TestBed, inject } from '@angular/core/testing';
 import { HttpClientTestingModule } from '@angular/common/http/testing';
 import { MapsAPILoader } from '@agm/core';
 import { GeolocationService } from './geolocation.service';
-import { Marker } from '../../models/marker.model';
+import { UserMarker } from '../../models/user-marker.model';
 import { HTML5GeolocationAPI } from '../../enums/html5-geolocation-api.enum';
 import { of, throwError } from 'rxjs';
 import { HttpClient } from '@angular/common/http';
 import { environment } from '../../../environments/environment';
 
 describe('GeolocationService', () => {
+  const mapsAPILoaderMock: any = {
+    load: () => Promise.resolve()
+  };
+
   beforeEach(() => TestBed.configureTestingModule({
     imports: [
       HttpClientTestingModule
     ],
     providers: [
-      MapsAPILoader
+      {
+        provide: MapsAPILoader,
+        useValue: mapsAPILoaderMock
+      }
     ]
   }));
 
@@ -26,13 +33,12 @@ describe('GeolocationService', () => {
 
   describe('getStreetMarkerSubject', () => {
     it('Should get the streetMarkerSubject', inject([GeolocationService], (geolocationService: GeolocationService) => {
-      const response: Marker = {
+      const response: UserMarker = {
         latitude: 0,
-        longitude: 0,
-        display: false
+        longitude: 0
       };
       geolocationService['streetMarkerSubject'].next(response);
-      geolocationService.getStreetMarkerSubject().subscribe((userMarker: Marker) => {
+      geolocationService.getStreetMarkerSubject().subscribe((userMarker: UserMarker) => {
         expect(userMarker).toEqual(response);
       });
     }));
@@ -41,14 +47,13 @@ describe('GeolocationService', () => {
   describe('getUserCoordinates', () => {
     it('Should return the user coordinates from the HTML5GeolocationAPI method',
       inject([GeolocationService], (geolocationService: GeolocationService) => {
-        const response: Marker = {
+        const response: UserMarker = {
           latitude: 0,
-          longitude: 0,
-          display: false
+          longitude: 0
         };
         spyOn<any>(geolocationService, 'HTML5GeolocationAPI').and.returnValue(Promise.resolve(response));
         spyOn<any>(geolocationService, 'IPGeolocationAPI');
-        geolocationService.getUserCoordinates().then((userMarker: Marker) => {
+        geolocationService.getUserCoordinates().then((userMarker: UserMarker) => {
           expect(geolocationService['HTML5GeolocationAPI']).toHaveBeenCalled();
           expect(geolocationService['IPGeolocationAPI']).not.toHaveBeenCalled();
           expect(userMarker).toEqual(response);
@@ -67,14 +72,13 @@ describe('GeolocationService', () => {
           accuracy: 0
         };
         spyOn<any>(geolocationService, 'IPGeolocationAPI').and.returnValue(of(position));
-        const result: Marker = {
+        const result: UserMarker = {
           latitude: 0,
           longitude: 0,
-          display: true,
           accuracy: 0
         };
         spyOn(console, 'log');
-        geolocationService.getUserCoordinates().then((userMarker: Marker) => {
+        geolocationService.getUserCoordinates().then((userMarker: UserMarker) => {
           expect(geolocationService['HTML5GeolocationAPI']).toHaveBeenCalled();
           expect(geolocationService['IPGeolocationAPI']).toHaveBeenCalled();
           expect(userMarker).toEqual(result);

@@ -1,6 +1,6 @@
 import { Injectable, ElementRef, NgZone } from '@angular/core';
 import { Subject, Observable } from 'rxjs';
-import { Marker } from '../../models/marker.model';
+import { UserMarker } from '../../models/user-marker.model';
 import { HttpClient, HttpErrorResponse } from '@angular/common/http';
 import { MapsAPILoader } from '@agm/core';
 import { HTML5GeolocationAPI } from '../../enums/html5-geolocation-api.enum';
@@ -14,31 +14,29 @@ import PlaceResult = google.maps.places.PlaceResult;
   providedIn: 'root'
 })
 export class GeolocationService {
-
-  private streetMarkerSubject: Subject<Marker>;
+  private streetMarkerSubject: Subject<UserMarker>;
 
   constructor(private http: HttpClient,
               private mapsAPILoader: MapsAPILoader,
               private ngZone: NgZone) {
-    this.streetMarkerSubject = new Subject<Marker>();
+    this.streetMarkerSubject = new Subject<UserMarker>();
   }
 
-  getStreetMarkerSubject(): Observable<Marker> {
+  getStreetMarkerSubject(): Observable<UserMarker> {
     return this.streetMarkerSubject.asObservable();
   }
 
-  getUserCoordinates(): Promise<Marker | string> {
+  getUserCoordinates(): Promise<UserMarker | string> {
     return new Promise((resolve, reject) => {
-      this.HTML5GeolocationAPI().then((userMarker: Marker) => {
+      this.HTML5GeolocationAPI().then((userMarker: UserMarker) => {
         resolve(userMarker);
       }).catch((errorMessage: String) => {
          if ((errorMessage === HTML5GeolocationAPI.POSITION_UNAVAILABLE) || (errorMessage === HTML5GeolocationAPI.TIMEOUT) ||
            (errorMessage === HTML5GeolocationAPI.DEFAULT)) {
            this.IPGeolocationAPI().subscribe((position: any) => {
-             const userMarker: Marker = {
+             const userMarker: UserMarker = {
                latitude: +position.location.lat,
                longitude: +position.location.lng,
-               display: true,
                accuracy: +position.accuracy
              };
              console.log('User marker: ' + JSON.stringify(userMarker));
@@ -55,14 +53,13 @@ export class GeolocationService {
     });
   }
 
-  private HTML5GeolocationAPI(): Promise<Marker | string> {
+  private HTML5GeolocationAPI(): Promise<UserMarker | string> {
     return new Promise((resolve, reject) => {
       if ((window.navigator) && (window.navigator.geolocation)) {
         window.navigator.geolocation.getCurrentPosition((position: Position) => {
-            const userMarker: Marker = {
+            const userMarker: UserMarker = {
               latitude: +position.coords.latitude,
               longitude: +position.coords.longitude,
-              display: true
             };
             console.log('User marker: ' + JSON.stringify(userMarker));
             resolve(userMarker);
@@ -116,10 +113,9 @@ export class GeolocationService {
             return;
           }
 
-          const userMarker: Marker = {
+          const userMarker: UserMarker = {
             latitude: +addressResult.geometry.location.lat(),
             longitude: +addressResult.geometry.location.lng(),
-            display: true
           };
           console.log('User marker: ' + JSON.stringify(userMarker));
           this.streetMarkerSubject.next(userMarker);
