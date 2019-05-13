@@ -1,63 +1,59 @@
 import { NgModule } from '@angular/core';
 import { BrowserModule } from '@angular/platform-browser';
 import { AppRoutingModule } from './app-routing.module';
-import { SharedModule } from './shared/shared.module';
 import { HttpClientModule } from '@angular/common/http';
+import { SharedModule } from './shared/shared.module';
+import { SocialLoginModule, AuthServiceConfig } from 'angularx-social-login';
+import { SearchRestaurantModule } from './modules/search-restaurant/search-restaurant.module';
+import { environment } from '../environments/environment';
+import { AgmCoreModule } from '@agm/core';
+import { AddOpinionModule } from './modules/add-opinion/add-opinion.module';
 import { AppComponent } from './app.component';
 import { HomeComponent } from './pages/home/home.component';
 import { AuthenticationComponent } from './pages/authentication/authentication.component';
-import { SocialLoginModule, AuthServiceConfig } from 'angularx-social-login';
+import { HeaderComponent } from './layout/header/header.component';
+import { SearchComponent } from './pages/search/search.component';
+import { NotFoundComponent } from './pages/not-found/not-found.component';
 import { getAuthServiceConfig } from './configurations/social-login.config';
 import { AuthenticationService } from './services/authentication/authentication.service';
-import { SearchComponent } from './pages/search/search.component';
-import { HeaderComponent } from './layout/header/header.component';
-import { SearchRestorationModule } from './modules/search-restoration/search-restoration.module';
-import { GeolocationService } from './services/geolocation/geolocation.service';
-import { SearchRestorationService } from './services/search-restoration/search-restoration.service';
-import { GoogleMapsModule } from './modules/google-maps/google-maps.module';
-import { AgmCoreModule } from '@agm/core';
-import { ResultsModule } from './modules/results/results.module';
-import { environment } from '../environments/environment';
 import { BackService } from './services/back/back.service';
+import { GeolocationService } from './services/geolocation/geolocation.service';
+import { SearchRestaurantService } from './services/search-restaurant/search-restaurant.service';
 import { OpinionService } from './services/opinion/opinion.service';
-import { NotFoundComponent } from './pages/not-found/not-found.component';
-import { AddOpinionModule } from './modules/add-opinion/add-opinion.module';
 
 @NgModule({
   declarations: [
     AppComponent,
     HomeComponent,
     AuthenticationComponent,
-    SearchComponent,
     HeaderComponent,
+    SearchComponent,
     NotFoundComponent
   ],
   imports: [
     BrowserModule,
     AppRoutingModule,
-    SharedModule,
     HttpClientModule,
+    SharedModule,
     SocialLoginModule,
-    SearchRestorationModule,
-    GoogleMapsModule,
+    SearchRestaurantModule,
     AgmCoreModule.forRoot({
       apiKey: environment.api_key,
       libraries: [
         'places'
       ]
     }),
-    ResultsModule,
     AddOpinionModule
   ],
   providers: [
-    AuthenticationService,
-    GeolocationService,
-    SearchRestorationService,
     {
       provide: AuthServiceConfig,
       useFactory: getAuthServiceConfig
     },
+    AuthenticationService,
     BackService,
+    GeolocationService,
+    SearchRestaurantService,
     OpinionService
   ],
   bootstrap: [ AppComponent ]

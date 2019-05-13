@@ -4,8 +4,8 @@ export interface Restaurant {
   latitude: number;
   longitude: number;
   address: string;
+  picture?: string;
   isOpen?: boolean;
-  photo?: string;
   rating?: number;
   number_ratings?: number;
 }

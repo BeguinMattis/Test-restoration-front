@@ -1,25 +1,26 @@
 import { async, ComponentFixture, TestBed } from '@angular/core/testing';
+import { AddOpinionComponent } from './add-opinion.component';
 
-import { AddReviewComponent } from './add-review.component';
-
-describe('AddReviewComponent', () => {
-  let component: AddReviewComponent;
-  let fixture: ComponentFixture<AddReviewComponent>;
+xdescribe('AddOpinionComponent', () => {
+  let component: AddOpinionComponent;
+  let fixture: ComponentFixture<AddOpinionComponent>;
 
   beforeEach(async(() => {
     TestBed.configureTestingModule({
-      declarations: [ AddReviewComponent ]
+      declarations: [ AddOpinionComponent ]
     })
     .compileComponents();
   }));
 
   beforeEach(() => {
-    fixture = TestBed.createComponent(AddReviewComponent);
+    fixture = TestBed.createComponent(AddOpinionComponent);
     component = fixture.componentInstance;
     fixture.detectChanges();
   });
 
-  it('should create', () => {
-    expect(component).toBeTruthy();
+  describe('ngOnInit', () => {
+    it('Should create the component', () => {
+      expect(component).toBeTruthy();
+    });
   });
 });

@@ -1,7 +1,7 @@
 import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
-import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { SharedModule } from '../../shared/shared.module';
+import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { AddOpinionComponent } from './add-opinion/add-opinion.component';
 
 @NgModule({
@@ -13,9 +13,9 @@ import { AddOpinionComponent } from './add-opinion/add-opinion.component';
   ],
   imports: [
     CommonModule,
+    SharedModule,
     FormsModule,
-    ReactiveFormsModule,
-    SharedModule
+    ReactiveFormsModule
   ],
   exports: [
     AddOpinionComponent

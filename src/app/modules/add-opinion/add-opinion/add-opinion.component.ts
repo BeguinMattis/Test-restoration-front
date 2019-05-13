@@ -1,67 +1,53 @@
-import {Component, Inject, OnInit} from '@angular/core';
-import {MAT_DIALOG_DATA, MatDialogRef} from '@angular/material';
-import {FormBuilder, FormGroup, Validators} from '@angular/forms';
-import {Restaurant} from '../../../models/restaurant.model';
-import {ReviewService} from '../../../services/review/review.service';
-
-export interface DialogData {
-  restaurant: Restaurant;
-}
+import { Component, OnInit, Inject } from '@angular/core';
+import { MatDialogRef, MAT_DIALOG_DATA } from '@angular/material';
+import { AddOpinion } from '../../../models/add-opinion.model';
+import { FormGroup, FormBuilder, Validators } from '@angular/forms';
+import { OpinionService } from '../../../services/opinion/opinion.service';
+import { HttpErrorResponse } from '@angular/common/http';
 
 @Component({
-  selector: 'app-add-review',
-  templateUrl: './add-review.component.html',
-  styleUrls: ['./add-review.component.css']
+  selector: 'app-add-opinion',
+  templateUrl: './add-opinion.component.html',
+  styleUrls: ['./add-opinion.component.css']
 })
-export class AddReviewComponent implements OnInit {
-  menuForm: FormGroup;
+export class AddOpinionComponent implements OnInit {
+  mealForm: FormGroup;
 
-  constructor(public dialogRef: MatDialogRef<AddReviewComponent>,
-              @Inject(MAT_DIALOG_DATA) public data: DialogData,
+  constructor(private matDialogRef: MatDialogRef<AddOpinionComponent>,
+              @Inject(MAT_DIALOG_DATA) private addOpinion: AddOpinion,
               private formBuilder: FormBuilder,
-              private reviewServices: ReviewService) { }
+              private opinionService: OpinionService) { }
 
   ngOnInit() {
     this.initForm();
   }
 
   initForm(): void {
-    this.menuForm = this.formBuilder.group({
-      entreeName: ['', Validators.required],
-      entreeAvis: ['', Validators.required],
-      platName: ['', Validators.required],
-      platAvis: ['', Validators.required],
-      dessertName: ['', Validators.required],
-      dessertAvis: ['', Validators.required]
+    this.mealForm = this.formBuilder.group({
+      starterName: '',
+      starterOpinion: '',
+      mainCourseName: ['', Validators.required],
+      mainCourseOpinion: ['', Validators.required],
+      dessertName: '',
+      dessertOpinion: '',
     });
   }
 
-  onNoClick(): void {
-    this.dialogRef.close();
+  cancelMeal(event: any): void {
+    event.preventDefault();
+    this.matDialogRef.close();
   }
 
-  onSubmitForm() {
-    console.log('onSubmitForm');
-    const formValue = this.menuForm.value;
-    const body = {
-      places_id: this.data.restaurant.id,
-      entreeName: formValue['entreeName'],
-      entreeAvis: formValue['entreeAvis'],
-      platName: formValue['platName'],
-      platAvis: formValue['platAvis'],
-      dessertName: formValue['dessertName'],
-      dessertAvis: formValue['dessertAvis']
+  submitMeal(): void {
+    const mealValues: any = this.mealForm.value;
+    const body: any = {
+      mainCourseName: mealValues['mainCourseName'],
+      mainCourseOpinion: mealValues['mainCourseOpinion']
     };
-    this.reviewServices.addReview(body).subscribe(() => {
-      console.log('next');
-      this.dialogRef.close();
-    }, (error) => {
-      console.log(error);
-      console.log('error');
-      this.dialogRef.close();
-    }, () => {
-      console.log('complete');
-      this.dialogRef.close();
+    this.opinionService.addOpinion(body).subscribe((response: any) => {
+      this.matDialogRef.close();
+      }, (error: HttpErrorResponse) => {
+      this.matDialogRef.close();
     });
   }
 }

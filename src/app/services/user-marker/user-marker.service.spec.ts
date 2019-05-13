@@ -1,28 +1,28 @@
 import { TestBed, inject } from '@angular/core/testing';
-import { MarkerService } from './marker.service';
+import { UserMarkerService } from './user-marker.service';
 import { UserMarker } from '../../models/user-marker.model';
 
-describe('MarkerService', () => {
+describe('UserMarkerService', () => {
   beforeEach(() => TestBed.configureTestingModule({}));
 
   describe('constructor', () => {
-    it('Should create the service', inject([MarkerService], (markerService: MarkerService) => {
-      expect(markerService).toBeTruthy();
+    it('Should create the service', inject([UserMarkerService], (userMarkerService: UserMarkerService) => {
+      expect(userMarkerService).toBeTruthy();
     }));
   });
 
   describe('check', () => {
     it('Should return true', () => {
-      const marker: UserMarker = {
+      const userMarker: UserMarker = {
         latitude: 0,
         longitude: 0
       };
-      expect(MarkerService.check(marker)).toBeTruthy();
+      expect(UserMarkerService.check(userMarker)).toBeTruthy();
     });
 
     it('Should return false', () => {
-      const marker: any = null;
-      expect(MarkerService.check(marker)).toBeFalsy();
+      const userMarker: any = null;
+      expect(UserMarkerService.check(userMarker)).toBeFalsy();
     });
   });
 });

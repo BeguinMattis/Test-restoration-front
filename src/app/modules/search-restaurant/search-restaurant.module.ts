@@ -1,19 +1,23 @@
 import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
+import { SharedModule } from '../../shared/shared.module';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
-import { SearchComponent } from './search/search.component';
+import { AgmCoreModule } from '@agm/core';
+import { SearchRestaurantComponent } from './search-restaurant/search-restaurant.component';
 
 @NgModule({
   declarations: [
-    SearchComponent
+    SearchRestaurantComponent
   ],
   imports: [
     CommonModule,
+    SharedModule,
     FormsModule,
-    ReactiveFormsModule
+    ReactiveFormsModule,
+    AgmCoreModule
   ],
   exports: [
-    SearchComponent
+    SearchRestaurantComponent
   ]
 })
-export class SearchModule { }
+export class SearchRestaurantModule { }

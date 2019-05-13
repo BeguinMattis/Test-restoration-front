@@ -1,33 +1,31 @@
 <h1 mat-dialog-title>Ajouter un avis</h1>
-<form [formGroup]="menuForm" (ngSubmit)="onSubmitForm()">
-  <div mat-dialog-content>
-    <div>
-      <label for="entreeName">Nom entréee</label>
-      <input type="text" id="entreeName" formControlName="entreeName">
-    </div>
-    <div>
-      <label for="entreeAvis">Avis entrée</label>
-      <input type="text" id="entreeAvis" formControlName="entreeAvis">
-    </div>
-    <div>
-      <label for="platName">Nom plat</label>
-      <input type="text" id="platName" formControlName="platName">
-    </div>
-    <div>
-      <label for="platAvis">Avis plat</label>
-      <input type="text" id="platAvis" formControlName="platAvis">
-    </div>
-    <div>
-      <label for="dessertName">Nom dessert</label>
-      <input type="text" id="dessertName" formControlName="dessertName">
-    </div>
-    <div>
-      <label for="dessertAvis">Avis dessert</label>
-      <input type="text" id="dessertAvis" formControlName="dessertAvis">
-    </div>
-  </div>
+<form mat-dialog-content [formGroup]="mealForm" (ngSubmit)="submitMeal()">
+  <mat-form-field>
+    <mat-label>Nom de l'entrée</mat-label>
+    <input matInput type="text" autocomplete="off" autocapitalize="off" spellcheck="false" formControlName="starterName"/>
+  </mat-form-field>
+  <mat-form-field>
+    <mat-label>Avis de l'entrée</mat-label>
+    <textarea matInput autocomplete="off" autocapitalize="off" spellcheck="false" formControlName="starterOpinion"></textarea>
+  </mat-form-field>
+  <mat-form-field>
+    <mat-label>Nom du plat principal</mat-label>
+    <input matInput type="text" autocomplete="off" autocapitalize="off" spellcheck="false" formControlName="mainCourseName"/>
+  </mat-form-field>
+  <mat-form-field>
+    <mat-label>Avis du plat principal</mat-label>
+    <textarea matInput autocomplete="off" autocapitalize="off" spellcheck="false" formControlName="mainCourseOpinion"></textarea>
+  </mat-form-field>
+  <mat-form-field>
+    <mat-label>Nom du dessert</mat-label>
+    <input matInput type="text" autocomplete="off" autocapitalize="off" spellcheck="false" formControlName="dessertName"/>
+  </mat-form-field>
+  <mat-form-field>
+    <mat-label>Avis du dessert</mat-label>
+    <textarea matInput autocomplete="off" autocapitalize="off" spellcheck="false" formControlName="dessertOpinion"></textarea>
+  </mat-form-field>
   <div mat-dialog-actions>
-    <button mat-raised-button (click)="onNoClick()">Quitter</button>
-    <button mat-raised-button type="submit" [disabled]="menuForm.invalid">Envoyer</button>
+    <button mat-button type="button" (click)="cancelMeal($event)">Annuler</button>
+    <button mat-button type="submit" [disabled]="mealForm.invalid">Envoyer</button>
   </div>
 </form>

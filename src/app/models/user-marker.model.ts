@@ -1,5 +1,4 @@
-export interface Marker {
-  display: boolean;
+export interface UserMarker {
   latitude: number;
   longitude: number;
   label?: string;

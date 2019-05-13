@@ -4,13 +4,13 @@ import { UserMarker } from '../../models/user-marker.model';
 @Injectable({
   providedIn: 'root'
 })
-export class MarkerService {
+export class UserMarkerService {
 
   constructor() { }
 
-  static check(marker: UserMarker): boolean {
-    return (((marker !== null) && (marker !== undefined)) &&
-      ((marker.latitude !== null) && (marker.latitude !== undefined) && (typeof marker.latitude === 'number')) &&
-      ((marker.longitude !== null) && (marker.longitude !== undefined) && (typeof marker.longitude === 'number')));
+  static check(userMarker: UserMarker): boolean {
+    return (((userMarker !== null) && (userMarker !== undefined)) &&
+      ((userMarker.latitude !== null) && (userMarker.latitude !== undefined) && (typeof userMarker.latitude === 'number')) &&
+      ((userMarker.longitude !== null) && (userMarker.longitude !== undefined) && (typeof userMarker.longitude === 'number')));
   }
 }

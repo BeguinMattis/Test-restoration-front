@@ -1,53 +1,82 @@
 import { Component, OnInit, OnDestroy, ViewChild, ElementRef } from '@angular/core';
 import { FormGroup, FormBuilder } from '@angular/forms';
-import { Subject, Subscription } from 'rxjs';
+import { Subscription, Subject } from 'rxjs';
+import { UserMarker } from '../../../models/user-marker.model';
+import { Restaurant } from '../../../models/restaurant.model';
 import { GeolocationService } from '../../../services/geolocation/geolocation.service';
-import { SearchRestorationService } from '../../../services/search-restoration/search-restoration.service';
-import { filter, takeUntil } from 'rxjs/operators';
-import { Marker } from '../../../models/marker.model';
-import { MarkerService } from '../../../services/marker/marker.service';
+import { SearchRestaurantService } from '../../../services/search-restaurant/search-restaurant.service';
+import { MatDialog } from '@angular/material';
+import { takeUntil, filter } from 'rxjs/operators';
+import { UserMarkerService } from '../../../services/user-marker/user-marker.service';
+import { AddOpinionComponent } from '../../add-opinion/add-opinion/add-opinion.component';
 
 @Component({
-  selector: 'app-search',
-  templateUrl: './search.component.html',
-  styleUrls: ['./search.component.css']
+  selector: 'app-search-restaurant',
+  templateUrl: './search-restaurant.component.html',
+  styleUrls: ['./search-restaurant.component.css']
 })
-export class SearchComponent implements OnInit, OnDestroy {
-
+export class SearchRestaurantComponent implements OnInit, OnDestroy {
   addressForm: FormGroup;
   @ViewChild('address')
   addressRef: ElementRef;
-  private _ngUnsubscribe: Subject<any>;
   streetMarkerSubscription: Subscription;
+  private _ngUnsubscribe: Subject<any>;
+  parisMarker: UserMarker;
+  userMarker: UserMarker;
+  restaurants: Restaurant[];
 
   constructor(private formBuilder: FormBuilder,
               private geolocationService: GeolocationService,
-              private searchRestorationService: SearchRestorationService) { }
+              private searchRestaurantService: SearchRestaurantService,
+              private matDialog: MatDialog) { }
 
   ngOnInit() {
-    this.addressForm = this.formBuilder.group({
-      addressControl: ''
-    });
+    this.parisMarker = {
+      latitude: 48.8534,
+      longitude: 2.3488
+    };
+    this.initForm();
     this.geolocationService.getStreetCoordinates(this.addressRef);
     this._ngUnsubscribe = new Subject<any>();
+    this.userMarker = null;
+    this.restaurants = [];
     this.streetMarkerSubscription = this.geolocationService.getStreetMarkerSubject()
       .pipe(takeUntil(this._ngUnsubscribe))
-      .pipe(filter((userMarker: Marker) => MarkerService.check(userMarker) === true))
-      .subscribe((userMarker: Marker) => {
-        this.searchRestorationService.setUserMarker(userMarker);
+      .pipe(filter((userMarker: UserMarker) => UserMarkerService.check(userMarker) === true))
+      .subscribe((userMarker: UserMarker) => {
+        this.userMarker = userMarker;
       });
   }
 
+  initForm(): void {
+    this.addressForm = this.formBuilder.group({
+      address: ''
+    });
+  }
+
   getUserCoordinates(): void {
-    this.geolocationService.getUserCoordinates().then((userMarker: Marker) => {
-      this.searchRestorationService.setUserMarker(userMarker);
+    this.geolocationService.getUserCoordinates().then((userMarker: UserMarker) => {
+      this.userMarker = userMarker;
     }).catch((errorMessage: string) => {
       // TODO: Display an alert for the user
     });
   }
 
   getRestaurantsCoordinates(): void {
-    this.searchRestorationService.getRestaurantsCoordinates(2000, this.addressRef);
+    const radius = 2000;
+    this.searchRestaurantService.getRestaurantsCoordinates(this.userMarker, radius).then((restaurants: Restaurant[]) => {
+      this.restaurants = restaurants;
+    }).catch((errorMessage: string) => {
+      // TODO: Display an alert for the user
+    });
+  }
+
+  addOpinion(restaurant: Restaurant): void {
+    this.matDialog.open(AddOpinionComponent, {
+      data: {restaurant: restaurant},
+      width: 'auto',
+      autoFocus: false
+    });
   }
 
   ngOnDestroy() {

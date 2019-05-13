@@ -1,7 +1,7 @@
 import { TestBed } from '@angular/core/testing';
 import { OpinionService } from './opinion.service';
 
-describe('OpinionService', () => {
+xdescribe('OpinionService', () => {
   beforeEach(() => TestBed.configureTestingModule({}));
 
   describe('constructor', () => {
