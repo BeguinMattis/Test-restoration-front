@@ -49,11 +49,15 @@
 
 Link to download the demonstration video of the first two course sessions :
 
-[https://drive.google.com/file/d/1CuJqTequoj8bMbo2JpSpWPZ8WZPj5a76/view?usp=sharing](https://drive.google.com/file/d/1CuJqTequoj8bMbo2JpSpWPZ8WZPj5a76/view?usp=sharing)
+[https://drive.google.com/open?id=1CuJqTequoj8bMbo2JpSpWPZ8WZPj5a76](https://drive.google.com/open?id=1CuJqTequoj8bMbo2JpSpWPZ8WZPj5a76)
 
 ### Course session of Mai 23 :
 
 - Using an API to retrieve the list of restaurants
+
+Link to download the demonstration video of the third course session :
+
+[https://drive.google.com/open?id=1hMJBdJLfAbSyGSjzSUVdUrWO-cPzdCgc](https://drive.google.com/open?id=1hMJBdJLfAbSyGSjzSUVdUrWO-cPzdCgc)
 
 ### Course session of June 21 :
 
