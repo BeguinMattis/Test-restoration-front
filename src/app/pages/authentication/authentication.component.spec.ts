@@ -23,8 +23,7 @@ describe('AuthenticationComponent', () => {
           useValue: routerMock
         }
       ]
-    })
-      .compileComponents();
+    }).compileComponents();
   }));
 
   beforeEach(() => {

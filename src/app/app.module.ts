@@ -5,14 +5,16 @@ import { HttpClientModule } from '@angular/common/http';
 import { SharedModule } from './shared/shared.module';
 import { SocialLoginModule, AuthServiceConfig } from 'angularx-social-login';
 import { SearchRestaurantModule } from './modules/search-restaurant/search-restaurant.module';
-import { environment } from '../environments/environment';
 import { AgmCoreModule } from '@agm/core';
 import { AddOpinionModule } from './modules/add-opinion/add-opinion.module';
+import { ListOpinionsModule } from './modules/list-opinions/list-opinions.module';
+import { environment } from '../environments/environment';
 import { AppComponent } from './app.component';
 import { HomeComponent } from './pages/home/home.component';
 import { AuthenticationComponent } from './pages/authentication/authentication.component';
 import { HeaderComponent } from './layout/header/header.component';
 import { SearchComponent } from './pages/search/search.component';
+import { ListComponent } from './pages/list/list.component';
 import { NotFoundComponent } from './pages/not-found/not-found.component';
 import { getAuthServiceConfig } from './configurations/social-login.config';
 import { AuthenticationService } from './services/authentication/authentication.service';
@@ -28,6 +30,7 @@ import { OpinionService } from './services/opinion/opinion.service';
     AuthenticationComponent,
     HeaderComponent,
     SearchComponent,
+    ListComponent,
     NotFoundComponent
   ],
   imports: [
@@ -43,7 +46,8 @@ import { OpinionService } from './services/opinion/opinion.service';
         'places'
       ]
     }),
-    AddOpinionModule
+    AddOpinionModule,
+    ListOpinionsModule
   ],
   providers: [
     {

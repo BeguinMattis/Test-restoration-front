@@ -1,0 +1,20 @@
+<p>Liste de vos avis :</p>
+<mat-card *ngFor="let globalOpinion of listOpinions.opinions">
+  <mat-card-header>
+    <mat-card-title>Place ID : {{ globalOpinion.place_id }}</mat-card-title>
+  </mat-card-header>
+  <mat-card-content>
+    <ng-container *ngFor="let starter of globalOpinion.starters">
+      <p>Nom de l'entrée : {{ starter.name }}</p>
+      <p>Avis de l'entrée : {{ starter.opinion }}</p>
+    </ng-container>
+    <ng-container *ngFor="let main_course of globalOpinion.main_courses">
+      <p>Nom du plat principal : {{ main_course.name }}</p>
+      <p>Avis du plat principal : {{ main_course.opinion }}</p>
+    </ng-container>
+    <ng-container *ngFor="let dessert of globalOpinion.desserts">
+      <p>Nom du dessert : {{ dessert.name }}</p>
+      <p>Avis du dessert : {{ dessert.opinion }}</p>
+    </ng-container>
+  </mat-card-content>
+</mat-card>
