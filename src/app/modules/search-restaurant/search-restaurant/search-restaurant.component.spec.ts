@@ -45,8 +45,7 @@ describe('SearchRestaurantComponent', () => {
       schemas: [
         NO_ERRORS_SCHEMA
       ]
-    })
-      .compileComponents();
+    }).compileComponents();
   }));
 
   beforeEach(() => {
