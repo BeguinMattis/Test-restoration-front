@@ -6,4 +6,6 @@ export interface GlobalOpinion {
   main_courses: SingleOpinion[];
   desserts: SingleOpinion[];
   place_id: string;
+  name?: string;
+  address?: string;
 }

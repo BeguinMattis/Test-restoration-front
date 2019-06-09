@@ -7,7 +7,7 @@ import { UserMarkerService } from '../user-marker/user-marker.service';
 @Injectable({
   providedIn: 'root'
 })
-export class SearchRestaurantService {
+export class RestaurantService {
 
   constructor(private mapsAPILoader: MapsAPILoader) { }
 
@@ -26,7 +26,7 @@ export class SearchRestaurantService {
           places.nearbySearch(request, (restaurantResults: any[], status: any) => {
             if (status === google.maps.places.PlacesServiceStatus.OK) {
               const restaurants: Restaurant[] = restaurantResults.map((restaurantResult: any) => ({
-                id: restaurantResult.place_id,
+                place_id: restaurantResult.place_id,
                 name: restaurantResult.name,
                 latitude: restaurantResult.geometry.location.lat(),
                 longitude: restaurantResult.geometry.location.lng(),
@@ -51,6 +51,41 @@ export class SearchRestaurantService {
         errorMessage = 'userMarker object is not correct!';
         reject(errorMessage);
       }
+    });
+  }
+
+  getDetails(placeId: string): Promise<Restaurant | string> {
+    return new Promise((resolve, reject) => {
+      let errorMessage: string;
+      this.mapsAPILoader.load().then(() => {
+        const request: any = {
+          placeId: placeId
+        };
+        const places: any = new google.maps.places.PlacesService(document.createElement('div'));
+        places.getDetails(request, (restaurantResult: any, status: any) => {
+          if (status === google.maps.places.PlacesServiceStatus.OK) {
+            const restaurant: Restaurant = {
+              place_id: restaurantResult.place_id,
+              name: restaurantResult.name,
+              latitude: restaurantResult.geometry.location.lat(),
+              longitude: restaurantResult.geometry.location.lng(),
+              address: restaurantResult.vicinity,
+              isOpen: restaurantResult.opening_hours ?
+                restaurantResult.opening_hours.open_now ? restaurantResult.opening_hours.open_now : null : null,
+              rating: restaurantResult.rating ? restaurantResult.rating : null,
+              number_ratings: restaurantResult.user_ratings_total ? restaurantResult.user_ratings_total : null
+            };
+            resolve(restaurant);
+          } else {
+            errorMessage = 'Google Places API returned an error!';
+            reject(errorMessage);
+          }
+        });
+      }).catch((error: any) => {
+        errorMessage = 'Maps API Loader returned an error!';
+        console.error('Error: ' + error);
+        reject(errorMessage);
+      });
     });
   }
 }

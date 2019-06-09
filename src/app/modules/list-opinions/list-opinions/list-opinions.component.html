@@ -2,20 +2,22 @@
 <ng-container *ngIf="listOpinions">
   <mat-card *ngFor="let globalOpinion of listOpinions.opinions">
     <mat-card-header>
-      <mat-card-title>Place ID : {{ globalOpinion.place_id }}</mat-card-title>
+      <mat-card-title>Place ID : {{ globalOpinion.place_id ? globalOpinion.place_id : '-' }}</mat-card-title>
+      <mat-card-subtitle>Nom : {{ globalOpinion.name ? globalOpinion.name : '-' }}</mat-card-subtitle>
     </mat-card-header>
     <mat-card-content>
+      <p>Adresse : {{ globalOpinion.address ? globalOpinion.address : '-' }}</p>
       <ng-container *ngFor="let starter of globalOpinion.starters">
-        <p>Nom de l'entrée : {{ starter.name }}</p>
-        <p>Avis de l'entrée : {{ starter.opinion }}</p>
+        <p>Nom de l'entrée : {{ starter.name ? starter.name : '-' }}</p>
+        <p>Avis de l'entrée : {{ starter.opinion ? starter.opinion : '-' }}</p>
       </ng-container>
       <ng-container *ngFor="let main_course of globalOpinion.main_courses">
-        <p>Nom du plat principal : {{ main_course.name }}</p>
-        <p>Avis du plat principal : {{ main_course.opinion }}</p>
+        <p>Nom du plat principal : {{ main_course.name ? main_course.name : '-' }}</p>
+        <p>Avis du plat principal : {{ main_course.opinion ? main_course.opinion : '-' }}</p>
       </ng-container>
       <ng-container *ngFor="let dessert of globalOpinion.desserts">
-        <p>Nom du dessert : {{ dessert.name }}</p>
-        <p>Avis du dessert : {{ dessert.opinion }}</p>
+        <p>Nom du dessert : {{ dessert.name ? dessert.name : '-' }}</p>
+        <p>Avis du dessert : {{ dessert.opinion ? dessert.opinion : '-' }}</p>
       </ng-container>
     </mat-card-content>
   </mat-card>

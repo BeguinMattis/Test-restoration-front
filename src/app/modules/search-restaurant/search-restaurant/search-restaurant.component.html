@@ -16,17 +16,17 @@
 <p>Restaurants à proximité de vous :</p>
 <mat-card *ngFor="let restaurant of restaurants">
   <mat-card-header>
-    <mat-card-title>ID : {{ restaurant.id }}</mat-card-title>
-    <mat-card-subtitle>Nom : {{ restaurant.name }}</mat-card-subtitle>
+    <mat-card-title>ID : {{ restaurant.place_id ? restaurant.place_id : '-' }}</mat-card-title>
+    <mat-card-subtitle>Nom : {{ restaurant.name ? restaurant.name : '-' }}</mat-card-subtitle>
   </mat-card-header>
   <mat-card-content>
-    <p>Latitude : {{ restaurant.latitude }}</p>
-    <p>Longitude : {{ restaurant.longitude }}</p>
-    <p>Adresse : {{ restaurant.address }}</p>
-    <p *ngIf="restaurant.picture">Photographie : {{ restaurant.picture }}</p>
-    <p *ngIf="restaurant.isOpen">Actuellement ouvert : {{ restaurant.isOpen }}</p>
-    <p *ngIf="restaurant.rating">Note : {{ restaurant.rating }}</p>
-    <p *ngIf="restaurant.number_ratings">Nombre de notes : {{ restaurant.number_ratings }}</p>
+    <p>Latitude : {{ restaurant.latitude ? restaurant.latitude : '-' }}</p>
+    <p>Longitude : {{ restaurant.longitude ? restaurant.longitude : '-' }}</p>
+    <p>Adresse : {{ restaurant.address ? restaurant.address : '-' }}</p>
+    <p *ngIf="restaurant.picture">Photographie : {{ restaurant.picture ? restaurant.picture : '-' }}</p>
+    <p *ngIf="restaurant.isOpen">Actuellement ouvert : {{ restaurant.isOpen ? restaurant.isOpen : '-' }}</p>
+    <p *ngIf="restaurant.rating">Note : {{ restaurant.rating ? restaurant.rating : '-' }}</p>
+    <p *ngIf="restaurant.number_ratings">Nombre de notes : {{ restaurant.number_ratings ? restaurant.number_ratings : '-' }}</p>
   </mat-card-content>
   <mat-card-actions>
     <button mat-button (click)="addOpinion(restaurant)">Ajouter un avis</button>

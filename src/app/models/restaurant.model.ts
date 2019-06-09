@@ -1,5 +1,5 @@
 export interface Restaurant {
-  id: string;
+  place_id: string;
   name: string;
   latitude: number;
   longitude: number;

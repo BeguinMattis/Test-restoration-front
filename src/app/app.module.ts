@@ -12,7 +12,7 @@ import { environment } from '../environments/environment';
 import { AppComponent } from './app.component';
 import { HomeComponent } from './pages/home/home.component';
 import { AuthenticationComponent } from './pages/authentication/authentication.component';
-import { HeaderComponent } from './layout/header/header.component';
+import { MainComponent } from './layout/main/main.component';
 import { SearchComponent } from './pages/search/search.component';
 import { ListComponent } from './pages/list/list.component';
 import { NotFoundComponent } from './pages/not-found/not-found.component';
@@ -20,7 +20,7 @@ import { getAuthServiceConfig } from './configurations/social-login.config';
 import { AuthenticationService } from './services/authentication/authentication.service';
 import { BackService } from './services/back/back.service';
 import { GeolocationService } from './services/geolocation/geolocation.service';
-import { SearchRestaurantService } from './services/search-restaurant/search-restaurant.service';
+import { RestaurantService } from './services/restaurant/restaurant.service';
 import { OpinionService } from './services/opinion/opinion.service';
 
 @NgModule({
@@ -28,7 +28,7 @@ import { OpinionService } from './services/opinion/opinion.service';
     AppComponent,
     HomeComponent,
     AuthenticationComponent,
-    HeaderComponent,
+    MainComponent,
     SearchComponent,
     ListComponent,
     NotFoundComponent
@@ -57,7 +57,7 @@ import { OpinionService } from './services/opinion/opinion.service';
     AuthenticationService,
     BackService,
     GeolocationService,
-    SearchRestaurantService,
+    RestaurantService,
     OpinionService
   ],
   bootstrap: [ AppComponent ]

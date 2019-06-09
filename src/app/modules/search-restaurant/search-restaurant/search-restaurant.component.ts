@@ -4,7 +4,7 @@ import { Subscription, Subject } from 'rxjs';
 import { UserMarker } from '../../../models/user-marker.model';
 import { Restaurant } from '../../../models/restaurant.model';
 import { GeolocationService } from '../../../services/geolocation/geolocation.service';
-import { SearchRestaurantService } from '../../../services/search-restaurant/search-restaurant.service';
+import { RestaurantService } from '../../../services/restaurant/restaurant.service';
 import { MatDialog } from '@angular/material';
 import { takeUntil, filter } from 'rxjs/operators';
 import { UserMarkerService } from '../../../services/user-marker/user-marker.service';
@@ -27,7 +27,7 @@ export class SearchRestaurantComponent implements OnInit, OnDestroy {
 
   constructor(private formBuilder: FormBuilder,
               private geolocationService: GeolocationService,
-              private searchRestaurantService: SearchRestaurantService,
+              private restaurantService: RestaurantService,
               private matDialog: MatDialog) { }
 
   ngOnInit() {
@@ -44,6 +44,7 @@ export class SearchRestaurantComponent implements OnInit, OnDestroy {
       .pipe(takeUntil(this._ngUnsubscribe))
       .pipe(filter((userMarker: UserMarker) => UserMarkerService.check(userMarker) === true))
       .subscribe((userMarker: UserMarker) => {
+        this.restaurants = [];
         this.userMarker = userMarker;
       });
   }
@@ -55,6 +56,7 @@ export class SearchRestaurantComponent implements OnInit, OnDestroy {
   }
 
   getUserCoordinates(): void {
+    this.restaurants = [];
     this.geolocationService.getUserCoordinates().then((userMarker: UserMarker) => {
       this.userMarker = userMarker;
     }).catch((errorMessage: string) => {
@@ -64,7 +66,7 @@ export class SearchRestaurantComponent implements OnInit, OnDestroy {
 
   getRestaurantsCoordinates(): void {
     const radius = 2000;
-    this.searchRestaurantService.getRestaurantsCoordinates(this.userMarker, radius).then((restaurants: Restaurant[]) => {
+    this.restaurantService.getRestaurantsCoordinates(this.userMarker, radius).then((restaurants: Restaurant[]) => {
       this.restaurants = restaurants;
     }).catch((errorMessage: string) => {
       // TODO: Display an alert for the user

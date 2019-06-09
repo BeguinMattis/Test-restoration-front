@@ -24,12 +24,12 @@ export class AddOpinionComponent implements OnInit {
 
   initForm(): void {
     this.mealForm = this.formBuilder.group({
-      starterName: '',
-      starterOpinion: '',
+      starterName: null,
+      starterOpinion: null,
       mainCourseName: ['', Validators.required],
       mainCourseOpinion: ['', Validators.required],
-      dessertName: '',
-      dessertOpinion: '',
+      dessertName: null,
+      dessertOpinion: null
     });
   }
 
@@ -41,12 +41,25 @@ export class AddOpinionComponent implements OnInit {
   submitMeal(): void {
     const mealValues: any = this.mealForm.value;
     const body: any = {
-      mainCourseName: mealValues['mainCourseName'],
-      mainCourseOpinion: mealValues['mainCourseOpinion']
+      place_id: this.addOpinion.restaurant.place_id,
+      starters: [{
+        name: mealValues['starterName'],
+        opinion: mealValues['starterOpinion']
+      }],
+      main_courses: [{
+        name: mealValues['mainCourseName'],
+        opinion: mealValues['mainCourseOpinion']
+      }],
+      desserts: [{
+        name: mealValues['dessertName'],
+        opinion: mealValues['dessertOpinion']
+      }]
     };
     this.opinionService.addOpinion(body).subscribe((response: any) => {
+      // TODO: Display a message for the user
       this.matDialogRef.close();
       }, (error: HttpErrorResponse) => {
+      // TODO: Display an alert for the user
       this.matDialogRef.close();
     });
   }
