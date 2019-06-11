@@ -16,6 +16,6 @@ app-authentication .mat-card-header-text {
   margin: 0 0 0 15px;
 }
 
-app-search-restaurant .mat-card-header-text {
+app-search-restaurant .mat-card-header-text, app-list-opinions .mat-card-header-text {
   margin: 0;
 }
