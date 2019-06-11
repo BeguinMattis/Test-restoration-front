@@ -6,29 +6,32 @@
 </form>
 <button mat-button type="button" (click)="getRestaurantsCoordinates()">Chercher des restaurants</button>
 
-<agm-map *ngIf="userMarker === null" [latitude]="parisMarker.latitude" [longitude]="parisMarker.longitude">
-</agm-map>
-<agm-map *ngIf="userMarker !== null" [fitBounds]="true">
-  <agm-marker [latitude]="userMarker.latitude" [longitude]="userMarker.longitude" [agmFitBounds]="true"></agm-marker>
-  <agm-marker *ngFor="let restaurant of restaurants" [latitude]="restaurant.latitude" [longitude]="restaurant.longitude" [agmFitBounds]="true"></agm-marker>
-</agm-map>
+<div id="container">
+  <agm-map *ngIf="userMarker === null" [latitude]="parisMarker.latitude" [longitude]="parisMarker.longitude">
+  </agm-map>
+  <agm-map *ngIf="userMarker !== null" [fitBounds]="true">
+    <agm-marker [latitude]="userMarker.latitude" [longitude]="userMarker.longitude" [agmFitBounds]="true"></agm-marker>
+    <agm-marker *ngFor="let restaurant of restaurants" [latitude]="restaurant.latitude" [longitude]="restaurant.longitude" [agmFitBounds]="true"></agm-marker>
+  </agm-map>
+</div>
 
-<p>Restaurants à proximité de vous :</p>
-<mat-card *ngFor="let restaurant of restaurants">
-  <mat-card-header>
-    <mat-card-title>ID : {{ restaurant.place_id ? restaurant.place_id : '-' }}</mat-card-title>
-    <mat-card-subtitle>Nom : {{ restaurant.name ? restaurant.name : '-' }}</mat-card-subtitle>
-  </mat-card-header>
-  <mat-card-content>
-    <p>Latitude : {{ restaurant.latitude ? restaurant.latitude : '-' }}</p>
-    <p>Longitude : {{ restaurant.longitude ? restaurant.longitude : '-' }}</p>
-    <p>Adresse : {{ restaurant.address ? restaurant.address : '-' }}</p>
-    <p *ngIf="restaurant.picture">Photographie : {{ restaurant.picture ? restaurant.picture : '-' }}</p>
-    <p *ngIf="restaurant.isOpen">Actuellement ouvert : {{ restaurant.isOpen ? restaurant.isOpen : '-' }}</p>
-    <p *ngIf="restaurant.rating">Note : {{ restaurant.rating ? restaurant.rating : '-' }}</p>
-    <p *ngIf="restaurant.number_ratings">Nombre de notes : {{ restaurant.number_ratings ? restaurant.number_ratings : '-' }}</p>
-  </mat-card-content>
-  <mat-card-actions>
-    <button mat-button (click)="addOpinion(restaurant)">Ajouter un avis</button>
-  </mat-card-actions>
-</mat-card>
+<ng-container *ngIf="restaurants">
+  <h2 class="title" *ngIf="restaurants.length >= 1">Liste des restaurants à proximités de vous</h2>
+  <h2 class="title" *ngIf="restaurants.length === 0">Il n'y a aucun restaurant à proximité de vous</h2>
+
+  <mat-card *ngFor="let restaurant of restaurants">
+    <mat-card-header>
+      <mat-card-title class="name"><mat-icon class="icon">home</mat-icon><span class="value">{{ restaurant.name ? restaurant.name : '-' }}</span></mat-card-title>
+      <mat-card-subtitle class="address"><mat-icon class="icon">location_on</mat-icon><span class="value">{{ restaurant.address ? restaurant.address : '-' }}</span></mat-card-subtitle>
+    </mat-card-header>
+    <mat-card-content>
+      <p class="open"><mat-icon class="icon lock">lock_open</mat-icon><span class="label">Actuellement ouvert : </span><span class="value">{{ (restaurant.isOpen === true) || (restaurant.isOpen === false) ? restaurant.isOpen : '-' }}</span></p>
+      <p class="rating"><mat-icon class="icon">rate_review</mat-icon><span class="label">Note : </span><span class="value">{{ (restaurant.rating) || (restaurant.rating === 0) ? restaurant.rating + ' / 5' : '-' }}</span></p>
+      <p class="number-ratings"><mat-icon class="icon">donut_large</mat-icon><span class="label">Nombre de notes : </span><span class="value">{{ (restaurant.number_ratings) || (restaurant.number_ratings === 0) ? restaurant.number_ratings : '-' }}</span></p>
+    </mat-card-content>
+    <mat-card-actions>
+      <button mat-button class="add-review" (click)="addOpinion(restaurant)"><mat-icon class="icon">add</mat-icon><span> Ajouter un avis</span></button>
+      <div class="clearfix"></div>
+    </mat-card-actions>
+  </mat-card>
+</ng-container>

@@ -39,12 +39,12 @@ export class SearchRestaurantComponent implements OnInit, OnDestroy {
     this.geolocationService.getStreetCoordinates(this.addressRef);
     this._ngUnsubscribe = new Subject<any>();
     this.userMarker = null;
-    this.restaurants = [];
+    this.restaurants = null;
     this.streetMarkerSubscription = this.geolocationService.getStreetMarkerSubject()
       .pipe(takeUntil(this._ngUnsubscribe))
       .pipe(filter((userMarker: UserMarker) => UserMarkerService.check(userMarker) === true))
       .subscribe((userMarker: UserMarker) => {
-        this.restaurants = [];
+        this.restaurants = null;
         this.userMarker = userMarker;
       });
   }
@@ -56,7 +56,7 @@ export class SearchRestaurantComponent implements OnInit, OnDestroy {
   }
 
   getUserCoordinates(): void {
-    this.restaurants = [];
+    this.restaurants = null;
     this.geolocationService.getUserCoordinates().then((userMarker: UserMarker) => {
       this.userMarker = userMarker;
     }).catch((errorMessage: string) => {
