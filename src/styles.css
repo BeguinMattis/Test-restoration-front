@@ -12,6 +12,14 @@ html, body {
   background-color: transparent;
 }
 
+app-add-opinion .mat-form-field.mat-focused .mat-form-field-label {
+  color: rgb(50, 117, 105);
+}
+
+.mat-focused .mat-form-field-underline .mat-form-field-ripple {
+  background-color: rgb(50, 117, 105);
+}
+
 app-authentication .mat-card-header-text {
   margin: 0 0 0 15px;
 }

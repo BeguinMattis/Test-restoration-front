@@ -1,4 +1,4 @@
-<h1 mat-dialog-title>Ajouter un avis</h1>
+<h2 mat-dialog-title id="title"><mat-icon class="icon">add</mat-icon><span class="text">Ajouter un avis</span></h2>
 <form mat-dialog-content [formGroup]="mealForm" (ngSubmit)="submitMeal()">
   <mat-form-field>
     <mat-label>Nom de l'entrée</mat-label>
@@ -24,8 +24,8 @@
     <mat-label>Avis du dessert</mat-label>
     <textarea matInput autocomplete="off" autocapitalize="off" spellcheck="false" formControlName="dessertOpinion"></textarea>
   </mat-form-field>
-  <div mat-dialog-actions>
-    <button mat-button type="button" (click)="cancelMeal($event)">Annuler</button>
-    <button mat-button type="submit" [disabled]="mealForm.invalid">Envoyer</button>
+  <div mat-dialog-actions id="buttons">
+    <button mat-button type="button" (click)="cancelMeal($event)"><mat-icon class="icon">cancel</mat-icon><span class="text">Annuler</span></button>
+    <button mat-button type="submit" [disabled]="mealForm.invalid"><span class="text">Envoyer</span><mat-icon class="icon right">send</mat-icon></button>
   </div>
 </form>

@@ -2,9 +2,9 @@
   width: 500px;
 }
 
-#container {
+#container-1, #container-2 {
   width: 100%;
-  padding: 12px 12px 0 12px;
+  padding: 0 12px;
   margin: 0;
   box-sizing: border-box;
 }

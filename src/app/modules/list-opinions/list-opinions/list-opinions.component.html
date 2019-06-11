@@ -1,27 +1,29 @@
 <ng-container *ngIf="listOpinions">
-  <h2 class="title" *ngIf="listOpinions.opinions.length >= 1">Liste de vos avis</h2>
-  <h2 class="title vertically" *ngIf="listOpinions.opinions.length === 0">Vous n'avez pas encore enregistré d'avis</h2>
+  <div id="container">
+    <h2 class="title" *ngIf="listOpinions.opinions.length >= 1">Liste de vos avis</h2>
+    <h2 class="title vertically" *ngIf="listOpinions.opinions.length === 0">Vous n'avez pas encore enregistré d'avis</h2>
 
-  <ng-container *ngFor="let globalOpinion of listOpinions.opinions">
-    <mat-card *ngIf="(globalOpinion.starters.length >= 1) || (globalOpinion.main_courses.length >= 1) || (globalOpinion.desserts.length >= 1)">
-      <mat-card-header>
-        <mat-card-title class="name"><mat-icon class="icon">home</mat-icon><span class="value">{{ globalOpinion.name ? globalOpinion.name : '-' }}</span></mat-card-title>
-        <mat-card-subtitle class="address"><mat-icon class="icon">location_on</mat-icon><span class="value">{{ globalOpinion.address ? globalOpinion.address : '-' }}</span></mat-card-subtitle>
-      </mat-card-header>
-      <mat-card-content>
-        <ng-container *ngFor="let starter of globalOpinion.starters">
-          <p class="starter-name"><mat-icon class="icon">restaurant_menu</mat-icon><span class="label">Nom de l'entrée : </span><span class="value">{{ starter.name ? starter.name : '-' }}</span></p>
-          <p class="starter-opinion"><mat-icon class="icon">rate_review</mat-icon><span class="label">Avis de l'entrée : </span><span class="value">{{ starter.opinion ? starter.opinion : '-' }}</span></p>
-        </ng-container>
-        <ng-container *ngFor="let main_course of globalOpinion.main_courses">
-          <p class="main-course-name"><mat-icon class="icon">restaurant_menu</mat-icon><span class="label">Nom du plat principal : </span><span class="value">{{ main_course.name ? main_course.name : '-' }}</span></p>
-          <p class="main-course-opinion"><mat-icon class="icon">rate_review</mat-icon><span class="label">Avis du plat principal : </span><span class="value">{{ main_course.opinion ? main_course.opinion : '-' }}</span></p>
-        </ng-container>
-        <ng-container *ngFor="let dessert of globalOpinion.desserts">
-          <p class="dessert-name"><mat-icon class="icon">restaurant_menu</mat-icon><span class="label">Nom du dessert : </span><span class="value">{{ dessert.name ? dessert.name : '-' }}</span></p>
-          <p class="dessert-opinion"><mat-icon class="icon">rate_review</mat-icon><span class="label">Avis du dessert : </span><span class="value">{{ dessert.opinion ? dessert.opinion : '-' }}</span></p>
-        </ng-container>
-      </mat-card-content>
-    </mat-card>
-  </ng-container>
+    <ng-container *ngFor="let globalOpinion of listOpinions.opinions">
+      <mat-card *ngIf="(globalOpinion.starters.length >= 1) || (globalOpinion.main_courses.length >= 1) || (globalOpinion.desserts.length >= 1)">
+        <mat-card-header>
+          <mat-card-title class="name"><mat-icon class="icon">home</mat-icon><span class="value">{{ globalOpinion.name ? globalOpinion.name : '-' }}</span></mat-card-title>
+          <mat-card-subtitle class="address"><mat-icon class="icon">location_on</mat-icon><span class="value">{{ globalOpinion.address ? globalOpinion.address : '-' }}</span></mat-card-subtitle>
+        </mat-card-header>
+        <mat-card-content>
+          <ng-container *ngFor="let starter of globalOpinion.starters">
+            <p class="starter-name"><mat-icon class="icon">restaurant_menu</mat-icon><span class="label">Nom de l'entrée : </span><span class="value">{{ starter.name ? starter.name : '-' }}</span></p>
+            <p class="starter-opinion"><mat-icon class="icon">rate_review</mat-icon><span class="label">Avis de l'entrée : </span><span class="value">{{ starter.opinion ? starter.opinion : '-' }}</span></p>
+          </ng-container>
+          <ng-container *ngFor="let main_course of globalOpinion.main_courses">
+            <p class="main-course-name"><mat-icon class="icon">restaurant_menu</mat-icon><span class="label">Nom du plat principal : </span><span class="value">{{ main_course.name ? main_course.name : '-' }}</span></p>
+            <p class="main-course-opinion"><mat-icon class="icon">rate_review</mat-icon><span class="label">Avis du plat principal : </span><span class="value">{{ main_course.opinion ? main_course.opinion : '-' }}</span></p>
+          </ng-container>
+          <ng-container *ngFor="let dessert of globalOpinion.desserts">
+            <p class="dessert-name"><mat-icon class="icon">restaurant_menu</mat-icon><span class="label">Nom du dessert : </span><span class="value">{{ dessert.name ? dessert.name : '-' }}</span></p>
+            <p class="dessert-opinion"><mat-icon class="icon">rate_review</mat-icon><span class="label">Avis du dessert : </span><span class="value">{{ dessert.opinion ? dessert.opinion : '-' }}</span></p>
+          </ng-container>
+        </mat-card-content>
+      </mat-card>
+    </ng-container>
+  </div>
 </ng-container>
