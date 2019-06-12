@@ -1,0 +1,48 @@
+.first-text-color {
+  color: rgb(255, 255, 255);
+}
+
+.second-text-color {
+  color: rgb(0, 0, 0);
+}
+
+.third-text-color {
+  color: rgb(194, 64, 55) !important;
+}
+
+.first-background-color {
+  background-color: rgb(255, 255, 255);
+}
+
+.second-background-color {
+  background-color: rgb(50, 117, 105);
+}
+
+.third-background-color {
+  background-color: rgb(18, 73, 63);
+}
+
+
+#application-menu mat-icon, #application-title mat-icon, #application-title span, .application-link mat-icon, .application-user mat-icon, #user-sign-out mat-icon, #sidenav-close mat-icon  {
+  font-size: 24px;
+}
+
+#application-title mat-icon, .application-link mat-icon, .application-user mat-icon, #user-sign-out mat-icon, #sidenav-close mat-icon {
+  margin-right: 5px;
+}
+
+.application-link span, .application-user span, #user-sign-out span, #sidenav-close span {
+  font-size: 16px;
+}
+
+.toto {
+  background-color: rgb(255, 255, 255) !important;
+}
+
+.example-fill-remaining-space {
+  flex: 1 1 auto;
+}
+
+.mat-nav-list {
+  padding-top: 0;
+}
