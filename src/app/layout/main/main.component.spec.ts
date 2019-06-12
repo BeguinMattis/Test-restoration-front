@@ -4,7 +4,7 @@ import { AuthenticationService } from '../../services/authentication/authenticat
 import { NO_ERRORS_SCHEMA } from '@angular/core';
 import { User } from '../../models/user.model';
 
-describe('MainComponent', () => {
+xdescribe('MainComponent', () => {
   let component: MainComponent;
   let fixture: ComponentFixture<MainComponent>;
   const authenticationServiceMock: jasmine.SpyObj<AuthenticationService> =

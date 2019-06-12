@@ -38,5 +38,5 @@ describe('OpinionService', () => {
         expect(backServiceMock.post).toHaveBeenCalledWith(environment.test_restoration.opinion_add, opinion);
       })
     );
-  })
+  });
 });
