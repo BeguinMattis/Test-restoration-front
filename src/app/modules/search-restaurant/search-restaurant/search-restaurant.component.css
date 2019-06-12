@@ -1,5 +1,23 @@
+#container-0 {
+  padding: 16px 12px;
+  box-sizing: border-box;
+}
+
+#geolocation, #address {
+  text-align: center;
+}
+
+#geolocation button {
+  color: rgb(255, 255, 255);
+  background-color: rgb(50, 117, 105);
+}
+
+.mat-focused #placeholder {
+  color: rgb(50, 117, 105);
+}
+
 .mat-form-field {
-  width: 500px;
+  width: 100%;
 }
 
 #container-1, #container-2 {
@@ -57,6 +75,7 @@ agm-map {
 }
 
 .label {
+  vertical-align: middle;
   font-weight: bold;
 }
 
@@ -65,10 +84,6 @@ agm-map {
 }
 
 .add-review {
-  position: relative;
-  right: 8px;
-  bottom: 8px;
-  float: right;
   padding-right: 22px;
   color: rgb(255, 255, 255);
   background-color: rgb(50, 117, 105);
@@ -79,13 +94,48 @@ agm-map {
 }
 
 @media screen and (max-width: 959px) {
+  #geolocation, #address {
+    display: block;
+    width: 100%;
+    box-sizing: border-box;
+  }
+
+  #geolocation {
+    padding-bottom: 13px;
+    border-bottom: 1px solid rgb(50, 117, 105);
+  }
+
+  #address {
+    border-top: 1px solid rgb(50, 117, 105);
+  }
+
+  .mat-form-field-infix {
+    border-top: 26px !important;
+  }
+
   .mat-card {
     display: block;
     width: 100%;
   }
+
+  .mat-card-actions  {
+    text-align: center;
+  }
 }
 
 @media screen and (min-width: 960px) {
+  #geolocation, #address {
+    display: inline-block;
+    vertical-align: middle;
+    width: calc(50% - 1px);
+  }
+
+  #address {
+    padding: 0 12px;
+    border-left: 2px solid rgb(50, 117, 105);
+    box-sizing: border-box;
+  }
+
   .mat-card {
     display: inline-block;
     vertical-align: top;
@@ -98,5 +148,12 @@ agm-map {
 
   .mat-card:nth-child(2n + 1) {
     margin-left: 3px;
+  }
+
+  .add-review {
+    position: relative;
+    right: 8px;
+    bottom: 8px;
+    float: right;
   }
 }

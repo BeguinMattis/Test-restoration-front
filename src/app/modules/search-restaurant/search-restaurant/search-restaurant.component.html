@@ -1,10 +1,16 @@
-<button mat-button type="button" (click)="getUserCoordinates()">Me géocaliser</button>
-<form [formGroup]="addressForm" novalidate>
-  <mat-form-field>
-    <input matInput type="text" autocapitalize="off" spellcheck="false" placeholder="Mon adresse" formControlName="address" #address/>
-  </mat-form-field>
-</form>
-<button mat-button type="button" (click)="getRestaurantsCoordinates()">Chercher des restaurants</button>
+<div id="container-0">
+  <div id="geolocation">
+    <button mat-button type="button" (click)="getUserCoordinates()">Me géocaliser</button>
+  </div>
+  <div id="address">
+    <form [formGroup]="addressForm" novalidate>
+      <mat-form-field>
+        <input matInput type="text" autocapitalize="off" spellcheck="false" formControlName="address" #address/>
+        <mat-placeholder id="placeholder">Adresse</mat-placeholder>
+      </mat-form-field>
+    </form>
+  </div>
+</div>
 
 <div id="container-1">
   <agm-map *ngIf="userMarker === null" [latitude]="parisMarker.latitude" [longitude]="parisMarker.longitude">
@@ -26,7 +32,7 @@
         <mat-card-subtitle class="address"><mat-icon class="icon">location_on</mat-icon><span class="value">{{ restaurant.address ? restaurant.address : '-' }}</span></mat-card-subtitle>
       </mat-card-header>
       <mat-card-content>
-        <p class="open"><mat-icon class="icon lock">lock_open</mat-icon><span class="label">Actuellement ouvert : </span><span class="value">{{ (restaurant.isOpen === true) || (restaurant.isOpen === false) ? restaurant.isOpen : '-' }}</span></p>
+        <p class="open"><mat-icon class="icon lock">lock_open</mat-icon><span class="label">Actuellement ouvert : </span><span class="value">{{ (restaurant.isOpen === true) || (restaurant.isOpen === false) ? restaurant.isOpen === true ? 'Oui' : 'Non' : '-' }}</span></p>
         <p class="rating"><mat-icon class="icon">rate_review</mat-icon><span class="label">Note : </span><span class="value">{{ (restaurant.rating) || (restaurant.rating === 0) ? restaurant.rating + ' / 5' : '-' }}</span></p>
         <p class="number-ratings"><mat-icon class="icon">donut_large</mat-icon><span class="label">Nombre de notes : </span><span class="value">{{ (restaurant.number_ratings) || (restaurant.number_ratings === 0) ? restaurant.number_ratings : '-' }}</span></p>
       </mat-card-content>

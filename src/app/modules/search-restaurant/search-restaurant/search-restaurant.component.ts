@@ -46,6 +46,7 @@ export class SearchRestaurantComponent implements OnInit, OnDestroy {
       .subscribe((userMarker: UserMarker) => {
         this.restaurants = null;
         this.userMarker = userMarker;
+        this.getRestaurantsCoordinates();
       });
   }
 
@@ -59,6 +60,7 @@ export class SearchRestaurantComponent implements OnInit, OnDestroy {
     this.restaurants = null;
     this.geolocationService.getUserCoordinates().then((userMarker: UserMarker) => {
       this.userMarker = userMarker;
+      this.getRestaurantsCoordinates();
     }).catch((errorMessage: string) => {
       // TODO: Display an alert for the user
     });

@@ -16,8 +16,12 @@ app-add-opinion .mat-form-field.mat-focused .mat-form-field-label {
   color: rgb(50, 117, 105);
 }
 
-.mat-focused .mat-form-field-underline .mat-form-field-ripple {
+app-search-restaurant .mat-focused .mat-form-field-underline .mat-form-field-ripple, app-add-opinion .mat-focused .mat-form-field-underline .mat-form-field-ripple {
   background-color: rgb(50, 117, 105);
+}
+
+app-search-restaurant #address .mat-form-field-infix {
+  border-top: 26px solid transparent !important;
 }
 
 app-authentication .mat-card-header-text {
