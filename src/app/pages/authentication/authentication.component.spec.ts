@@ -2,6 +2,7 @@ import { async, ComponentFixture, TestBed } from '@angular/core/testing';
 import { AuthenticationComponent } from './authentication.component';
 import { AuthenticationService } from '../../services/authentication/authentication.service';
 import { Router } from '@angular/router';
+import { NO_ERRORS_SCHEMA } from '@angular/core';
 
 describe('AuthenticationComponent', () => {
   let component: AuthenticationComponent;
@@ -22,9 +23,11 @@ describe('AuthenticationComponent', () => {
           provide: Router,
           useValue: routerMock
         }
+      ],
+      schemas: [
+        NO_ERRORS_SCHEMA
       ]
-    })
-      .compileComponents();
+    }).compileComponents();
   }));
 
   beforeEach(() => {

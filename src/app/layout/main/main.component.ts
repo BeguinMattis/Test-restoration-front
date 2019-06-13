@@ -1,13 +1,14 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, Input } from '@angular/core';
 import { User } from '../../models/user.model';
 import { AuthenticationService } from '../../services/authentication/authentication.service';
 
 @Component({
-  selector: 'app-header',
-  templateUrl: './header.component.html',
-  styleUrls: ['./header.component.css']
+  selector: 'app-main',
+  templateUrl: './main.component.html',
+  styleUrls: ['./main.component.css']
 })
-export class HeaderComponent implements OnInit {
+export class MainComponent implements OnInit {
+  @Input() module: string;
   user: User;
 
   constructor(private authenticationService: AuthenticationService) { }

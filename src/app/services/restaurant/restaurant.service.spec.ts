@@ -1,8 +1,8 @@
 import { TestBed, inject } from '@angular/core/testing';
-import { SearchRestaurantService } from './search-restaurant.service';
+import { RestaurantService } from './restaurant.service';
 import { MapsAPILoader } from '@agm/core';
 
-describe('SearchRestaurantService', () => {
+describe('RestaurantService', () => {
   const mapsAPILoaderMock: any = {
     load: () => Promise.resolve()
   };
@@ -18,8 +18,8 @@ describe('SearchRestaurantService', () => {
 
   describe('constructor', () => {
     it('Should create the service',
-      inject([SearchRestaurantService], (searchRestaurantService: SearchRestaurantService) => {
-        expect(searchRestaurantService).toBeTruthy();
+      inject([RestaurantService], (restaurantService: RestaurantService) => {
+        expect(restaurantService).toBeTruthy();
       })
     );
   });

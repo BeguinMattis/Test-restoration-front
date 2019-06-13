@@ -1,1 +1,16 @@
-<button (click)="signIn()">Se connecter avec Google</button>
+<div id="container">
+  <mat-card>
+    <mat-card-header>
+      <mat-card-title>
+        <mat-icon id="login-logo">person</mat-icon>
+        <span id="login-title">Connexion</span>
+      </mat-card-title>
+    </mat-card-header>
+    <mat-card-actions>
+      <button mat-button id="sign-in" (click)="signIn()">
+        <img id="google-logo" src="assets/images/google.png" alt="Logo de Google"/>
+        <span id="google-text">Se connecter avec Google</span>
+      </button>
+    </mat-card-actions>
+  </mat-card>
+</div>

@@ -1,0 +1,62 @@
+<mat-toolbar class="first-text-color second-background-color">
+  <mat-toolbar-row>
+    <button mat-icon-button id="application-menu" fxShow="true" fxHide.gt-sm="true" (click)="sidenav.toggle()">
+      <mat-icon>menu</mat-icon>
+    </button>
+    <a mat-button id="application-title" [routerLink]="['/home']">
+      <mat-icon>restaurant</mat-icon>
+      <span>Mes restaurants</span>
+    </a>
+
+    <span class="example-fill-remaining-space"></span>
+
+    <div fxShow="true" fxHide.lt-md="true">
+      <a mat-button class="application-link" [routerLink]="['/search']">
+        <mat-icon>search</mat-icon>
+        <span>Chercher</span>
+      </a>
+      <a mat-button class="application-link" [routerLink]="['/list']">
+        <mat-icon>list</mat-icon>
+        <span>Consulter</span>
+      </a>
+      <button mat-button class="application-user" [matMenuTriggerFor]="userMenu">
+        <mat-icon>person</mat-icon>
+        <span>{{ user.given_name + ' ' + user.family_name }}</span>
+      </button>
+    </div>
+  </mat-toolbar-row>
+</mat-toolbar>
+
+<mat-sidenav-container fxFlexFill>
+  <mat-sidenav #sidenav>
+    <mat-nav-list>
+      <a mat-list-item class="application-link" [routerLink]="['/search']">
+        <mat-icon>search</mat-icon>
+        <span>Chercher</span>
+      </a>
+      <a mat-list-item class="application-link" [routerLink]="['/list']">
+        <mat-icon>list</mat-icon>
+        <span>Consulter</span>
+      </a>
+      <a mat-list-item class="first-background-color toto application-user" [matMenuTriggerFor]="userMenu">
+        <mat-icon>person</mat-icon>
+        <span>{{ user.given_name + ' ' + user.family_name }}</span>
+      </a>
+      <a mat-list-item id="sidenav-close" (click)="sidenav.toggle()">
+        <mat-icon>close</mat-icon>
+        <span>Fermer</span>
+      </a>
+    </mat-nav-list>
+  </mat-sidenav>
+  <mat-sidenav-content fxFlexFill>
+    <app-search-restaurant *ngIf="module === 'app-search-restaurant'"></app-search-restaurant>
+    <app-list-opinions *ngIf="module === 'app-list-opinions'"></app-list-opinions>
+  </mat-sidenav-content>
+</mat-sidenav-container>
+
+<mat-menu #userMenu="matMenu">
+  <button mat-menu-item id="user-sign-out" (click)="signOut()">
+    <mat-icon class="third-text-color">power_settings_new</mat-icon>
+    <span>Déconnexion</span>
+  </button>
+</mat-menu>
